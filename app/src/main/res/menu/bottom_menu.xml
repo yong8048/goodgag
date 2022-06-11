@@ -3,21 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu1"
+        android:id="@+id/btnBack"
         android:enabled="true"
-        android:title="이병욱"
+        android:title=""
+        android:icon="@drawable/ic_left_arrow"
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/menu2"
+        android:id="@+id/btnBefore"
         android:enabled="true"
-        android:title="이병욱"
+        android:title=""
+        android:icon="@drawable/ic_up_arrow"
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/menu3"
+        android:id="@+id/btnNext"
         android:enabled="true"
-        android:title="이병욱"
+        android:title=""
+        android:icon="@drawable/ic_down_arrow"
         app:showAsAction="always"/>
 
     <item
