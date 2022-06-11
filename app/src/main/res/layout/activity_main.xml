@@ -6,6 +6,4 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".MainActivity">
-
-    이승용ㅋ
 </LinearLayout>
