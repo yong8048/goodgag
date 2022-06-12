@@ -20,7 +20,12 @@
         <entry key="..\:/Users/lbw39/Documents/GoodGag/goodgag/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.137" />
         <entry key="..\:/Users/lbw39/Documents/GoodGag/goodgag/app/src/main/res/mipmap-anydpi-v26/leftArrow.xml" value="0.137" />
         <entry key="..\:/Users/lbw39/Documents/GoodGag/goodgag/app/src/main/res/mipmap-anydpi-v26/leftArrow_round.xml" value="0.137" />
-        <entry key="..\:/goodgag/goodgag/app/src/main/res/layout/activity_main.xml" value="0.16590678824721378" />
+        <entry key="..\:/goodgag/goodgag/app/src/main/res/drawable/ic_comment_foreground.xml" value="0.1615" />
+        <entry key="..\:/goodgag/goodgag/app/src/main/res/drawable/ic_down_arrow.xml" value="0.1615" />
+        <entry key="..\:/goodgag/goodgag/app/src/main/res/drawable/ic_random_foreground.xml" value="0.1615" />
+        <entry key="..\:/goodgag/goodgag/app/src/main/res/drawable/ic_refresh_foreground.xml" value="0.1615" />
+        <entry key="..\:/goodgag/goodgag/app/src/main/res/drawable/ic_share_foreground.xml" value="0.1615" />
+        <entry key="..\:/goodgag/goodgag/app/src/main/res/layout/activity_main.xml" value="0.33" />
       </map>
     </option>
   </component>
