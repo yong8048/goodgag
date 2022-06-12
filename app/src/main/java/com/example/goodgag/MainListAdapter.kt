@@ -10,22 +10,18 @@ import android.widget.TextView
 
 class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : BaseAdapter() {
     override fun getCount(): Int {
-        TODO("Not yet implemented")
         return postList.size
     }
 
     override fun getItem(position: Int): Any {
-        TODO("Not yet implemented")
         return postList[position]
     }
 
     override fun getItemId(position: Int): Long {
-        TODO("Not yet implemented")
         return 0
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        TODO("Not yet implemented")
 
         val view : View = LayoutInflater.from(context).inflate(R.layout.main_lv_item, null)
 
