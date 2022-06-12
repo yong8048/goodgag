@@ -8,11 +8,13 @@
     tools:context=".MainActivity">
 
     <ScrollView
+        android:id="@+id/sv_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="100">
 
         <LinearLayout
+            android:id="@+id/ll_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -20,17 +22,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/color_top_tv"
+                android:background="@color/color_main"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="고급유머 +_+"
-
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <ListView
+                android:id="@+id/lv_main"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/color_top_tv">
+
+            </ListView>
 
         </LinearLayout>
 
@@ -47,42 +52,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/ic_left_arrow"/>
+            android:background="@drawable/ic_left_arrow" />
+
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/ic_up_arrow"/>
+            android:background="@drawable/ic_up_arrow" />
+
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/ic_down_arrow"/>
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@mipmap/ic_comment"
-            android:layout_weight="1"/>
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@mipmap/ic_refresh"
-            android:layout_weight="1"/>
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@mipmap/ic_share"
-            android:layout_weight="1"/>
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@mipmap/ic_random"
-            android:layout_weight="1"/>
+            android:background="@drawable/ic_down_arrow" />
+
         <ImageButton
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/settings_foreground"/>
+            android:background="@mipmap/ic_comment" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_refresh" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_share" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_random" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/settings_foreground" />
     </LinearLayout>
 
 </LinearLayout>
