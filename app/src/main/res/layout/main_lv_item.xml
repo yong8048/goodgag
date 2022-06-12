@@ -11,15 +11,20 @@
         android:layout_weight="5"
         android:gravity="center"
         android:id="@+id/tv_number"
-        android:text="번호" />
+        android:text="번호"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/white"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:id="@+id/tv_header"
-        android:gravity="center"
-        android:text="제목" />
+        android:text="제목"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/white"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -27,5 +32,8 @@
         android:layout_weight="5"
         android:id="@+id/tv_date"
         android:gravity="center"
-        android:text="날짜" />
+        android:text="날짜"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/white" />
 </LinearLayout>
