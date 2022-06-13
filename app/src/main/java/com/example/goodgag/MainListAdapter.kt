@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.ListView
 import android.widget.TextView
-
+import kotlinx.android.synthetic.main.activity_main.*
 class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : BaseAdapter() {
     override fun getCount(): Int {
         return 15
@@ -28,6 +29,8 @@ class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : Ba
         val postNumber = view.findViewById<TextView>(R.id.tv_number)
         val postHeader = view.findViewById<TextView>(R.id.tv_header)
         val postDate = view.findViewById<TextView>(R.id.tv_date)
+
+
 
         val post = postList[position]
         postNumber.text = post.number
