@@ -10,7 +10,7 @@ import android.widget.TextView
 
 class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : BaseAdapter() {
     override fun getCount(): Int {
-        return postList.size
+        return 15
     }
 
     override fun getItem(position: Int): Any {

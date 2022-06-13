@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/option_Search"
+        android:title="검색"/>
+    <item
+        android:id="@+id/option_Download"
+        android:title="다운로드" />
+    <item
+        android:id="@+id/option_History"
+        android:title="히스토리 보기" />
+    <item
+        android:id="@+id/option_Bookmark"
+        android:title="즐겨찾기 보기" />
+    <item
+        android:id="@+id/option_Mycomment"
+        android:title="내 댓글 보기" />
+    <item
+        android:id="@+id/option_Setting"
+        android:title="설정" />
+</menu>
