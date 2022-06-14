@@ -45,19 +45,30 @@ class MainActivity : AppCompatActivity() {
 
         btnListNext.setSingleLine()
 
+        var menuOption = PopupMenu(applicationContext, btnSettings)
+        menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
 
         btnSettings.setOnClickListener {
-            var menuOption = PopupMenu(applicationContext, it)
-            menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
             menuOption.show()
         }
-
+        menuOption.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.option_Setting -> {
+                    setContentView(R.layout.activity_settings)
+                    return@setOnMenuItemClickListener true
+                }
+                else -> {
+                    return@setOnMenuItemClickListener false
+                }
+            }
+        }
 
         btnShare.setOnClickListener {
             var menuShare = PopupMenu(applicationContext, it)
             menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
             menuShare.show()
         }
+
     }
 
     inner class SimpleListListener : AdapterView.OnItemClickListener{

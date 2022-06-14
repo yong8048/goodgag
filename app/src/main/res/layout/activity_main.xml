@@ -239,7 +239,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/settings_foreground" />
+            android:background="@drawable/ic_settings_foreground" />
     </LinearLayout>
 
 </LinearLayout>
