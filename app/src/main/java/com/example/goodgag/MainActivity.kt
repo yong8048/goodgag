@@ -45,11 +45,13 @@ class MainActivity : AppCompatActivity() {
 
         btnListNext.setSingleLine()
 
+
         btnSettings.setOnClickListener {
             var menuOption = PopupMenu(applicationContext, it)
             menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
             menuOption.show()
         }
+
 
         btnShare.setOnClickListener {
             var menuShare = PopupMenu(applicationContext, it)
