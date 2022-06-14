@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
 
         lv_main.onItemClickListener = SimpleListListener()
 
+        btnListNext.setSingleLine()
+
         btnSettings.setOnClickListener {
             var menuOption = PopupMenu(applicationContext, it)
             menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
