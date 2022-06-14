@@ -1,14 +1,14 @@
-package com.example.goodgag
+package com.example.goodgag.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.ListView
 import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.goodgag.Post
+import com.example.goodgag.R
+
 class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : BaseAdapter() {
     override fun getCount(): Int {
         return 15

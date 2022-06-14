@@ -1,10 +1,13 @@
-package com.example.goodgag
+package com.example.goodgag.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.PopupMenu
+import com.example.goodgag.adapter.MainListAdapter
+import com.example.goodgag.Post
+import com.example.goodgag.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 

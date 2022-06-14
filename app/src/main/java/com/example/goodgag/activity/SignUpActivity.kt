@@ -1,4 +1,4 @@
-package com.example.goodgag
+package com.example.goodgag.activity
 
 import androidx.appcompat.app.AppCompatActivity
 
