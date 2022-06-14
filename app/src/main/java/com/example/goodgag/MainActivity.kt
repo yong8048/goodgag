@@ -40,13 +40,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         lv_main.adapter = MainListAdapter(this, postList)
-
         lv_main.onItemClickListener = SimpleListListener()
 
-        btnSettings.setOnClickListener {
-            var menuOption = PopupMenu(applicationContext, it)
-            menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
-            menuOption.show()
+
+        btnShare.setOnClickListener {
+            var menuShare = PopupMenu(applicationContext, it)
+            menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
+            menuShare.show()
         }
 
         btnShare.setOnClickListener {
