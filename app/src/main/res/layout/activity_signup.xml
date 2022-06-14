@@ -20,20 +20,48 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="댓글과 북마크를 이용하려면 가입하세요." />
+        android:text="댓글과 북마크를 이용하려면 로그인하세요." />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="로그인 틀림 다시하셈"
+        android:textColor="#FF0000"
+        android:visibility="invisible" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:textSize="13dp"
+        android:layout_marginRight="50dp"
+        android:hint="이메일"
+        android:paddingTop="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:textSize="13dp"
+        android:layout_marginRight="50dp"
+
+        android:hint="비밀번호" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
         android:background="#2196F3"
         android:gravity="center"
         android:paddingLeft="30dp"
         android:paddingTop="5dp"
         android:paddingRight="30dp"
         android:paddingBottom="5dp"
-        android:text="회원가입"
+        android:text="로그인"
         android:textColor="@color/white" />
 
     <View
@@ -48,6 +76,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="#2196F3"
+        android:gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingTop="5dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="5dp"
+        android:text="회원가입"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="20dp"
         android:gravity="center"
         android:text="또는"
@@ -57,10 +99,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
+
         android:gravity="center"
         android:text="아이디 및 비밀번호 찾기"
-        android:textColor="#6A6A6A" />
+
+        android:textColor="#2196F3" />
 
 
 </LinearLayout>
