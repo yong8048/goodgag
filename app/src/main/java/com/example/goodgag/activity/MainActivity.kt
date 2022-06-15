@@ -49,8 +49,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("sylee", "메인액티비티 동작")
         lv_main.adapter = MainListAdapter(this, postList)
 
-        lv_main.onItemClickListener = SimpleListListener()
-
         btnListNext.setSingleLine()
 
         var menuOption = PopupMenu(applicationContext, btnSettings)
@@ -62,9 +60,7 @@ class MainActivity : AppCompatActivity() {
         menuOption.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.option_Setting -> {
-//                    setContentView(R.layout.activity_settings)
-                    var intent = Intent(this,OptionActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this,OptionActivity::class.java))
                     return@setOnMenuItemClickListener true
                 }
                 else -> {
@@ -82,17 +78,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity,"asd",Toast.LENGTH_SHORT).show()
         }
     }
-
-    inner class SimpleListListener : AdapterView.OnItemClickListener{
-        override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            if(b){
-                tv_Main.text = "조명철볍신ㅋㅋ"
-            }
-            else{
-                tv_Main.text = "ㅋㅋ볍신조명철"
-            }
-            b = !b
-        }
+    private fun Click_MenuItem(){
 
     }
 }

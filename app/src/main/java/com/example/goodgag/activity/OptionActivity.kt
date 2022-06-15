@@ -11,14 +11,13 @@ class OptionActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        tvUserInfo.setOnClickListener {
-            var intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
+        tvLogin.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
         }
 
         swPushSetting.setOnClickListener {
-            var intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
+
         }
+
     }
 }

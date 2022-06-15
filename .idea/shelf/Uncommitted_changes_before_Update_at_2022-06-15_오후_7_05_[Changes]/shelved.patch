@@ -1,0 +1,19 @@
+Index: app/src/main/java/com/example/goodgag/activity/SignUpActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/goodgag/activity/SignUpActivity.kt b/app/src/main/java/com/example/goodgag/activity/LoginActivity.kt
+rename from app/src/main/java/com/example/goodgag/activity/SignUpActivity.kt
+rename to app/src/main/java/com/example/goodgag/activity/LoginActivity.kt
+--- a/app/src/main/java/com/example/goodgag/activity/SignUpActivity.kt	
++++ b/app/src/main/java/com/example/goodgag/activity/LoginActivity.kt	
+@@ -4,7 +4,7 @@
+ import androidx.appcompat.app.AppCompatActivity
+ import com.example.goodgag.R
+ 
+-class SignUpActivity : AppCompatActivity() {
++class LoginActivity : AppCompatActivity() {
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_signup)
