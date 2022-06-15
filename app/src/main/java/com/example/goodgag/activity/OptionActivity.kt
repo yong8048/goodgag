@@ -1,5 +1,7 @@
 package com.example.goodgag.activity
 
-class OptionActivity {
+import androidx.appcompat.app.AppCompatActivity
+
+class OptionActivity : AppCompatActivity(){
 
 }

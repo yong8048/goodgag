@@ -9,6 +9,7 @@ import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_settings.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         Post("22", "이병욱", "2022./23"),
     )
     var b : Boolean = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -71,7 +73,6 @@ class MainActivity : AppCompatActivity() {
             menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
             menuShare.show()
         }
-
     }
 
     inner class SimpleListListener : AdapterView.OnItemClickListener{

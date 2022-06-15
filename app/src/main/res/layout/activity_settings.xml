@@ -28,15 +28,16 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tvUserInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:padding="10dp"
-                android:text="로그인" />
+                android:text="로그인"
+                android:textColor="@color/black"/>
             <TextView
-                android:id="@+id/tvUserInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="7"
@@ -60,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:padding="10dp"
-                android:text="푸시설정" />
+                android:text="푸시설정"
+                android:textColor="@color/black"/>
 
             <Switch
                 android:id="@+id/swPushSetting"
@@ -88,14 +90,16 @@
             android:text="편의 기능"
             android:textColor="#2196F3" />
 
-        <TextView
+        <Button
             android:id="@+id/tvModifyMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:background="@drawable/textview_edge_lightgray"
             android:padding="10dp"
-            android:text="메뉴편집" />
+            android:text="메뉴 편집"
+            android:textColor="@color/black"
+            android:gravity="fill"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -111,7 +115,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:padding="10dp"
-                android:text="다크모드" />
+                android:text="다크모드"
+                android:textColor="@color/black"/>
 
             <Switch
                 android:id="@+id/swDarkMode"
@@ -131,7 +136,9 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/textview_edge_lightgray"
             android:padding="10dp"
-            android:text="광고제거 구독하기" />
+            android:text="광고제거 구독하기"
+            android:textColor="@color/black"
+            android:gravity="fill"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -147,7 +154,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:padding="10dp"
-                android:text="확대모드" />
+                android:text="확대모드"
+                android:textColor="@color/black"/>
 
             <Switch
                 android:id="@+id/swCloseUpMode"
@@ -172,7 +180,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:padding="10dp"
-                android:text="이어보기" />
+                android:text="이어보기"
+                android:textColor="@color/black"/>
 
             <Switch
                 android:id="@+id/swFollowUp"
@@ -192,7 +201,9 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/textview_edge_lightgray"
             android:padding="10dp"
-            android:text="캐시 삭제" />
+            android:text="캐시 삭제"
+            android:textColor="@color/black"
+            android:gravity="fill"/>
     </LinearLayout>
 
     <LinearLayout
