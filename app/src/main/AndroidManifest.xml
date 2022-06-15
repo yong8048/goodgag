@@ -26,6 +26,8 @@
         <activity android:name=".activity.SettingsActivity"></activity>
         <activity android:name=".activity.LoginActivity"></activity>
         <activity android:name=".activity.FindidpwActivity"></activity>
+        <activity android:name=".activity.SignUpActivity"></activity>
+        <activity android:name=".activity.MyPageActivity"></activity>
     </application>
 
 </manifest>

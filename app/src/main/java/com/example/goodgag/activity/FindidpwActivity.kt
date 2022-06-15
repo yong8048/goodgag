@@ -12,14 +12,10 @@ class FindidpwActivity : AppCompatActivity(){
         setContentView(R.layout.activity_findidpw)
 
         //////////////////////////////////////// btnFindID 클릭
-        btnFindID.setOnClickListener {
-            Click_btnFindID(it)
-        }
+        btnFindID.setOnClickListener { Click_btnFindID(it) }
 
         //////////////////////////////////////// btnFindPW 클릭
-        btnFindPW.setOnClickListener {
-            Click_btnFindPW(it)
-        }
+        btnFindPW.setOnClickListener { Click_btnFindPW(it) }
     }
     private fun Click_btnFindID(view: View){
 

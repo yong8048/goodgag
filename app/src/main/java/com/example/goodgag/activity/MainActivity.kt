@@ -49,14 +49,10 @@ class MainActivity : AppCompatActivity() {
         btnListNext.setSingleLine()
 
         //////////////////////////////////////// btnSettings 클릭
-        btnSettings.setOnClickListener {
-            CLick_btnSettings(it)
-        }
+        btnSettings.setOnClickListener { CLick_btnSettings(it) }
 
         //////////////////////////////////////// btnShare 클릭
-        btnShare.setOnClickListener {
-            Click_btnShare(it)
-        }
+        btnShare.setOnClickListener { Click_btnShare(it)  }
     }
     private fun CLick_btnSettings(view: View){
         var menuOption = PopupMenu(applicationContext, view)

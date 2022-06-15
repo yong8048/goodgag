@@ -23,20 +23,13 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         ///////////////////////////////////////////로그인 버튼
-        btnLogin.setOnClickListener {
-            Login(etID.text.toString(), etPassword.text.toString())
-        }
+        btnLogin.setOnClickListener { Login(etID.text.toString(), etPassword.text.toString()) }
 
         ///////////////////////////////////////////회원가입 버튼
-        btnSignUp.setOnClickListener{
-            startActivity(Intent(this, SignUpActivity::class.java))
-        }
+        btnSignUp.setOnClickListener{ startActivity(Intent(this, SignUpActivity::class.java)) }
 
         ///////////////////////////////////////////아이디비번 찾기 텍스트뷰
-        tvFindPrivacy.setOnClickListener {
-            startActivity(Intent(this,FindidpwActivity::class.java))
-        }
-
+        tvFindPrivacy.setOnClickListener { startActivity(Intent(this,FindidpwActivity::class.java)) }
     }
 
     private fun Login(email : String, password : String) {

@@ -11,9 +11,7 @@ class SettingsActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        tvLogin.setOnClickListener {
-            startActivity(Intent(this,LoginActivity::class.java))
-        }
+        tvLogin.setOnClickListener { startActivity(Intent(this,LoginActivity::class.java)) }
 
 
         swPushSetting.setOnClickListener {
