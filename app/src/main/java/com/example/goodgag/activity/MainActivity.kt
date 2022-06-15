@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.PopupMenu
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
                     return@setOnMenuItemClickListener false
                 }
             }
+            Click_MenuItem(it.itemId)
         }
         btnShare.setOnClickListener {
             var menuShare = PopupMenu(applicationContext, it)
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity,"asd",Toast.LENGTH_SHORT).show()
         }
     }
-    private fun Click_MenuItem(){
+    private fun Click_MenuItem(menuItem: MenuItem){
 
     }
 }
