@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
 import com.example.goodgag.adapter.MainListAdapter
@@ -47,40 +48,60 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("sylee", "메인액티비티 동작")
+
         lv_main.adapter = MainListAdapter(this, postList)
 
         btnListNext.setSingleLine()
 
-        var menuOption = PopupMenu(applicationContext, btnSettings)
-        menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
-
+        //////////////////////////////////////// btnSettings 클릭
         btnSettings.setOnClickListener {
-            menuOption.show()
+            CLick_btnSettings(it)
         }
-        menuOption.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.option_Setting -> {
-                    startActivity(Intent(this,OptionActivity::class.java))
-                    return@setOnMenuItemClickListener true
-                }
-                else -> {
-                    return@setOnMenuItemClickListener false
-                }
-            }
-            Click_MenuItem(it.itemId)
-        }
+
+        //////////////////////////////////////// btnShare 클릭
         btnShare.setOnClickListener {
-            var menuShare = PopupMenu(applicationContext, it)
-            menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
-            menuShare.show()
-        }
-        tvkidding.setOnClickListener {
-            tvkidding.text = "ㅋㅋ이승용 볍신ㅋㅋ"
-            Toast.makeText(this@MainActivity,"asd",Toast.LENGTH_SHORT).show()
+            Click_btnShare(it)
         }
     }
-    private fun Click_MenuItem(menuItem: MenuItem){
+    private fun CLick_btnSettings(view: View){
+        var menuOption = PopupMenu(applicationContext, view)
+        menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
+        menuOption.show()
 
+        //////////////////////////////////////// menuOption 클릭
+        menuOption.setOnMenuItemClickListener {
+            return@setOnMenuItemClickListener Click_MenuOption(it)
+        }
+    }
+    private fun Click_MenuOption(menuItem: MenuItem) : Boolean{
+        when (menuItem.itemId) {
+            R.id.option_Search -> {
+                return true
+            }
+            R.id.option_Download -> {
+                return true
+            }
+            R.id.option_History -> {
+                return true
+            }
+            R.id.option_Bookmark -> {
+                return true
+            }
+            R.id.option_Mycomment -> {
+                return true
+            }
+            R.id.option_Setting -> {
+                startActivity(Intent(this,OptionActivity::class.java))
+                return true
+            }
+            else -> {
+                return false
+            }
+        }
+    }
+    private fun Click_btnShare(view: View){
+        var menuShare = PopupMenu(applicationContext, view)
+        menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
+        menuShare.show()
     }
 }
