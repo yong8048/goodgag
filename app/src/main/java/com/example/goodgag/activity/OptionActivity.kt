@@ -15,6 +15,7 @@ class OptionActivity : AppCompatActivity(){
             startActivity(Intent(this,LoginActivity::class.java))
         }
 
+
         swPushSetting.setOnClickListener {
 
         }
