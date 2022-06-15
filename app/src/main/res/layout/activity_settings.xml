@@ -90,7 +90,7 @@
             android:text="편의 기능"
             android:textColor="#2196F3" />
 
-        <Button
+        <TextView
             android:id="@+id/tvModifyMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -234,7 +234,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="3"
                 android:padding="10dp"
-                android:text="버전" />
+                android:text="버전"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tvVersion"
@@ -244,7 +245,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="7"
                 android:padding="10dp"
-                android:text="EX) 2.0.0"/>
+                android:text="EX) 2.0.0"
+                android:textColor="@color/black"/>
         </LinearLayout>
 
         <TextView
@@ -255,7 +257,8 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/textview_edge_lightgray"
             android:padding="10dp"
-            android:text="문의하기" />
+            android:text="문의하기"
+            android:textColor="@color/black" />
 
     </LinearLayout>
 
