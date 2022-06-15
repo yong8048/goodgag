@@ -3,18 +3,13 @@ package com.example.goodgag.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
 import android.widget.PopupMenu
-import android.widget.Toast
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_settings.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -91,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.option_Setting -> {
-                startActivity(Intent(this,OptionActivity::class.java))
+                startActivity(Intent(this,SettingsActivity::class.java))
                 return true
             }
             else -> {
