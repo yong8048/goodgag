@@ -1,10 +1,12 @@
 package com.example.goodgag.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.PopupMenu
+import android.widget.Toast
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
@@ -59,7 +61,9 @@ class MainActivity : AppCompatActivity() {
         menuOption.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.option_Setting -> {
-                    setContentView(R.layout.activity_settings)
+//                    setContentView(R.layout.activity_settings)
+                    var intent = Intent(this,OptionActivity::class.java)
+                    startActivity(intent)
                     return@setOnMenuItemClickListener true
                 }
                 else -> {
@@ -67,11 +71,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
         btnShare.setOnClickListener {
             var menuShare = PopupMenu(applicationContext, it)
             menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
             menuShare.show()
+        }
+        tvkidding.setOnClickListener {
+            tvkidding.text = "ㅋㅋ이승용 볍신ㅋㅋ"
+            Toast.makeText(this@MainActivity,"asd",Toast.LENGTH_SHORT).show()
         }
     }
 
