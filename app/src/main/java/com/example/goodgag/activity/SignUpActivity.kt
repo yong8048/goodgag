@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.activity_signup.*
 
 class SignUpActivity : AppCompatActivity() {
 
-    var firebasepath: FirebaseAuth? = null
+    var firebasepath : FirebaseAuth? = null
+    var bSingUp : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,43 +31,42 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun Click_SignUp(view: View) {
-        var toastMessage: String = ""
+        bSingUp = true
         if(etName.text.toString() == ""){
-            toastMessage += "Name, "
+            Toast_SignUp("Name")
         }
-        if (etEmail.text.toString() == "") {
-            toastMessage += "Email, "
+        else if (etEmail.text.toString() == "") {
+            Toast_SignUp("Email")
         }
-        if(etPW.text.toString() == ""){
-            toastMessage += "PassWord, "
+        else if(etPW.text.toString() == "" || etPWcheck.text.toString() == ""){
+            Toast_SignUp("PassWord")
         }
-        if(etPWcheck.text.toString() == ""){
-            toastMessage += "PassWord Check, "
+        else if(etPhone1.text.toString() == "" || etPhone2.text.toString() == "" || etPhone3.text.toString() == ""){
+            Toast_SignUp("Phone Number")
         }
-        if(etPhone1.text.toString() == "" || etPhone2.text.toString() == "" || etPhone3.text.toString() == ""){
-            toastMessage += "Phone Number, "
+        else if(etBirth.text.toString() == ""){
+            Toast_SignUp("BirthDay")
         }
-        if(etBirth.text.toString() == ""){
-            toastMessage += "BirthDay, "
+        else if(etPW.text.toString() != etPWcheck.text.toString()){
+            Toast_SignUp("PassWord Mismatch")
         }
-        if(toastMessage == "") {
+        if(bSingUp) {
             firebasepath!!.createUserWithEmailAndPassword(
                 etEmail.text.toString().trim() + spMailList.selectedItem.toString().trim(),
                 etPW.text.toString().trim()
             ).addOnCompleteListener(this) {
                 if (it.isSuccessful) {
                     val user = firebasepath?.currentUser
-                    toastMessage = "Authentication Success."
+                    Toast.makeText(this, "Authentication Success", Toast.LENGTH_SHORT).show()
                 }
                 else {
-                    toastMessage = "Authentication Fail!"
+                    Toast.makeText(this, "Authentication Fail!", Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
             }
         }
-        else{
-            toastMessage = toastMessage.substring(0, toastMessage.length - 2)
-            Toast.makeText(this, "Empty : $toastMessage", Toast.LENGTH_SHORT).show()
-        }
+    }
+    private fun Toast_SignUp(str : String){
+        Toast.makeText(this,"Please ReCheck $str",Toast.LENGTH_SHORT).show()
+        bSingUp = false
     }
 }
