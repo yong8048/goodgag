@@ -32,6 +32,7 @@ class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : Ba
 
 
 
+
         val post = postList[position]
         postNumber.text = post.number
         postHeader.text = post.header

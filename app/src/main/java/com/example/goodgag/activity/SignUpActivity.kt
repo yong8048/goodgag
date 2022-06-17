@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.goodgag.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_signup.*
+import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -33,22 +34,22 @@ class SignUpActivity : AppCompatActivity() {
     private fun Click_SignUp(view: View) {
         bSingUp = true
         if(etName.text.toString() == ""){
-            Toast_SignUp("Name")
+            Toast_SignUp("Name", Toast.LENGTH_SHORT)
         }
         else if (etEmail.text.toString() == "") {
-            Toast_SignUp("Email")
+            Toast_SignUp("Email", Toast.LENGTH_SHORT)
         }
         else if(etPW.text.toString() == "" || etPWcheck.text.toString() == ""){
-            Toast_SignUp("PassWord")
+            Toast_SignUp("PassWord", Toast.LENGTH_SHORT)
         }
         else if(etPhone1.text.toString() == "" || etPhone2.text.toString() == "" || etPhone3.text.toString() == ""){
-            Toast_SignUp("Phone Number")
+            Toast_SignUp("Phone Number", Toast.LENGTH_SHORT)
         }
         else if(etBirth.text.toString() == ""){
-            Toast_SignUp("BirthDay")
+            Toast_SignUp("BirthDay", Toast.LENGTH_SHORT)
         }
         else if(etPW.text.toString() != etPWcheck.text.toString()){
-            Toast_SignUp("PassWord Mismatch")
+            Toast_SignUp("PassWord Mismatch", Toast.LENGTH_SHORT)
         }
         if(bSingUp) {
             firebasepath!!.createUserWithEmailAndPassword(
@@ -57,16 +58,16 @@ class SignUpActivity : AppCompatActivity() {
             ).addOnCompleteListener(this) {
                 if (it.isSuccessful) {
                     val user = firebasepath?.currentUser
-                    Toast.makeText(this, "Authentication Success", Toast.LENGTH_SHORT).show()
+                    Toast_SignUp("Authentication Success", Toast.LENGTH_SHORT)
                 }
                 else {
-                    Toast.makeText(this, "Authentication Fail!", Toast.LENGTH_SHORT).show()
+                    Toast_SignUp("Authentication Fail!", Toast.LENGTH_SHORT)
                 }
             }
         }
     }
-    private fun Toast_SignUp(str : String){
-        Toast.makeText(this,"Please ReCheck $str",Toast.LENGTH_SHORT).show()
+    private fun Toast_SignUp(str : String, length: Int){
+        Toast.makeText(this,"Please ReCheck $str", length).show()
         bSingUp = false
     }
 }
