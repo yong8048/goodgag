@@ -58,7 +58,8 @@ class SignUpActivity : AppCompatActivity() {
             ).addOnCompleteListener(this) {
                 if (it.isSuccessful) {
                     val user = firebasepath?.currentUser
-                    Toast_SignUp("Authentication Success", Toast.LENGTH_SHORT)
+                    Toast_SignUp("Authentication Success", Toast.LENGTH_SHORT, false)
+                    finish()
                 }
                 else {
                     Toast_SignUp("Authentication Fail!", Toast.LENGTH_SHORT)
@@ -66,8 +67,11 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
-    private fun Toast_SignUp(str : String, length: Int){
-        Toast.makeText(this,"Please ReCheck $str", length).show()
+    private fun Toast_SignUp(str : String, length: Int, bError : Boolean = true){
+        var msg = "Please Recheck $str"
+        if(!bError){ msg = str }
         bSingUp = false
+
+        Toast.makeText(this, msg, length).show()
     }
 }

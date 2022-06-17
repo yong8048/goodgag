@@ -28,7 +28,7 @@ class SettingsActivity : AppCompatActivity(){
             versionName = pm.versionName
         }
         catch (e: Exception){
-            Toast.makeText(this,"Exception, 수정필요",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Exception, 수정필요\n ${e.toString()}",Toast.LENGTH_SHORT).show()
         }
 
         return versionName
