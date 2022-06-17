@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class LoginActivity : AppCompatActivity() {
 
     var auth : FirebaseAuth? = null
-
+    var bLogincheck : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -33,19 +33,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun Login(email : String, password : String) {
-        var strID : String = etID.text.toString()
-        var strPassword : String = etPassword.text.toString()
-
-        //파이어베이스에서 로그인 아이디비번 가져와서 비교
-        if(strID == "asd" && strPassword == "1") {
-            Toast.makeText(this, "로그인 완료", Toast.LENGTH_LONG).show()
-            finish()
-        }
-        //로그인 완료시 finish()되고 settings.xml에서 로그인아이디로 변경
-        else {
+        if(etID.text.toString() == "" || etPassword.text.toString() == ""){
             tvLoginError.visibility = View.VISIBLE
-            Toast.makeText(this, "로그인 실패", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Login fail", Toast.LENGTH_SHORT).show()
+        } else {
+            auth!!.signInWithEmailAndPassword(etID.text.toString(), etPassword.text.toString())
+                .addOnCompleteListener(this) {
+                    if (it.isSuccessful) {
+                        Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show()
+                        val user = auth?.currentUser
+                        bLogincheck = true
+                        finish()
+                    } else {
+                        tvLoginError.visibility = View.VISIBLE
+                        Toast.makeText(this, "Login fail", Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
-
     }
 }
