@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="100"
+        android:background="#5A5A5A"
         android:fillViewport="true">
 
         <LinearLayout

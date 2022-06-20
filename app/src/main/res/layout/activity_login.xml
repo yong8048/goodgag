@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="로그인 틀림 다시하셈"
+        android:text="로그인 정보가 틀렸습니다. 다시 입력하세요."
         android:textColor="#FF0000"
         android:visibility="invisible" />
 

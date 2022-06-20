@@ -23,10 +23,12 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="10dp"
+        android:id="@+id/etFindIDName"
         android:hint="이름을 입력하세요"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/etFindIDPhone"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="10dp"
         android:hint="핸드폰 번호를 입력하세요"/>
@@ -66,9 +68,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="10dp"
-        android:hint="생년월일을 입력하세요"/>
+        android:id="@+id/etFindPhone"
+        android:hint="핸드폰 번호를 입력하세요"/>
     <EditText
         android:layout_width="match_parent"
+        android:id="@+id/etFindEmail"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="10dp"
