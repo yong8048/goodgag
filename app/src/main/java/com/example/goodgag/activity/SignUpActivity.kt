@@ -16,6 +16,8 @@ class SignUpActivity : AppCompatActivity() {
 
     enum class SignUpInfo {
         NAME,
+        NICKNAME,
+        EMAIL,
         PHONENUMBER,
         BIRTHDAY
     }
@@ -102,11 +104,11 @@ class SignUpActivity : AppCompatActivity() {
 //        ref_phonenumber.setValue(phNumber.toString())
 //        ref_birthday.setValue(etBirth.text.toString())
 
-        database.getReference("user_$username" + "/name").setValue(etName.text.toString())
-        database.getReference("user_$username" + "/nickname").setValue(etName.text.toString() + "_nickname")
-        database.getReference("user_$username" + "/email").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
-        database.getReference("user_$username" + "/phonenumber").setValue(phNumber.toString())
-        database.getReference("user_$username" + "/birthday").setValue(etBirth.text.toString())
+        database.getReference("user_$username" + "/${SignUpInfo.NAME.toString()}").setValue(etName.text.toString())
+        database.getReference("user_$username" + "/${SignUpInfo.NICKNAME.toString()}").setValue(etName.text.toString() + "_nickname")
+        database.getReference("user_$username" + "/${SignUpInfo.EMAIL.toString()}").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
+        database.getReference("user_$username" + "/${SignUpInfo.PHONENUMBER.toString()}").setValue(phNumber.toString())
+        database.getReference("user_$username" + "/${SignUpInfo.BIRTHDAY.toString()}").setValue(etBirth.text.toString())
     }
 
     private fun getSignUpData(){
