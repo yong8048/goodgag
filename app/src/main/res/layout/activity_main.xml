@@ -166,13 +166,22 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvkidding"
+                    android:id="@+id/tvTest1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:padding="25dp"
 
                     android:text="이병욱 볍신ㅋㅋ" />
+                <TextView
+                android:id="@+id/tvTest2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="25dp"
+
+                android:text="이병욱 볍신ㅋㅋ" />
+
 
             </LinearLayout>
         </LinearLayout>

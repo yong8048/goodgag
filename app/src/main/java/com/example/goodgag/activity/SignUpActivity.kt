@@ -7,13 +7,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.goodgag.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.*
 
 class SignUpActivity : AppCompatActivity() {
 
+    enum class SignUpInfo {
+        NAME,
+        PHONENUMBER,
+        BIRTHDAY
+    }
     var firebasepath : FirebaseAuth? = null
     var bSingUp : Boolean = true
+    val database : FirebaseDatabase = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +67,9 @@ class SignUpActivity : AppCompatActivity() {
                 if (it.isSuccessful) {
                     val user = firebasepath?.currentUser
                     Toast_SignUp("Authentication Success", Toast.LENGTH_SHORT, false)
-                    finish()
+                    saveSignUpData()
+//                    getSignUpData()
+//                    finish()
                 }
                 else {
                     Toast_SignUp("Authentication Fail!", Toast.LENGTH_SHORT)
@@ -67,6 +77,50 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+    // 회원가입정보 Firebase에 Upload
+    private fun saveSignUpData(){
+//        val pref = this.getPreferences(0)
+//        val editor = pref.edit()
+        var phNumber = etPhone1.text.toString().plus(etPhone2.text.toString()).plus(etPhone3.text.toString())
+//
+//        editor.putString(SignUpInfo.NAME.toString(), etName.text.toString())
+//            .putString(SignUpInfo.PHONENUMBER.toString(), phNumber.toString())
+//            .putInt(SignUpInfo.BIRTHDAY.toString(), etBirth.text.toString().toInt()).apply()
+
+        val username : String = etName.text.toString()
+
+//        val ref_username: DatabaseReference = database.getReference("user_$username" + "/name")
+//        val ref_nickname: DatabaseReference = database.getReference("user_$username" + "/nickname")
+//        val ref_email: DatabaseReference = database.getReference("user_$username" + "/email")
+//        val ref_phonenumber: DatabaseReference = database.getReference("user_$username" + "/phonenumber")
+//        val ref_birthday: DatabaseReference = database.getReference("user_$username" + "/birthday")
+//
+//        ref_username.setValue(etName.text.toString())
+//        ref_nickname.setValue(etName.text.toString() + "_nickname")
+//        ref_email.setValue(etEmail.text.toString())
+//        ref_phonenumber.setValue(phNumber.toString())
+//        ref_birthday.setValue(etBirth.text.toString())
+
+        database.getReference("user_$username" + "/name").setValue(etName.text.toString())
+        database.getReference("user_$username" + "/nickname").setValue(etName.text.toString() + "_nickname")
+        database.getReference("user_$username" + "/email").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
+        database.getReference("user_$username" + "/phonenumber").setValue(phNumber.toString())
+        database.getReference("user_$username" + "/birthday").setValue(etBirth.text.toString())
+    }
+
+    private fun getSignUpData(){
+        val pref = this.getPreferences(0)
+        val name = pref.getString(SignUpInfo.NAME.toString(), null)
+        val phNumber = pref.getInt(SignUpInfo.PHONENUMBER.toString(), 0)
+        val birth = pref.getInt(SignUpInfo.BIRTHDAY.toString(), 0)
+
+        tvTest11.setText(name.toString())
+        tvTest22.setText(phNumber.toString())
+        tvTest33.setText(birth.toString())
+
+    }
+
     private fun Toast_SignUp(str : String, length: Int, bError : Boolean = true){
         var msg = "Please Recheck $str"
         if(!bError){ msg = str }
