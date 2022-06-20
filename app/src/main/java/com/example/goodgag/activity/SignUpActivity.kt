@@ -130,14 +130,13 @@ class SignUpActivity : AppCompatActivity() {
     // 회원가입정보 Firebase에 Upload
     private fun saveSignUpData(){
         val username : String = etName.text.toString()
-        val email = etEmail.text.toString().plus(spMailList.selectedItem.toString().replace(".",""))
 
-        database.getReference("user_$email" + "/${SignUpInfo.NAME}").setValue(etName.text.toString())
-        database.getReference("user_$email" + "/${SignUpInfo.NICKNAME}").setValue(etNickname.text.toString())
-        database.getReference("user_$email" + "/${SignUpInfo.EMAIL}").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
         var phNumber = etPhone1.text.toString().plus(etPhone2.text.toString()).plus(etPhone3.text.toString())
-        database.getReference("user_$email" + "/${SignUpInfo.PHONENUMBER}").setValue(phNumber.toString())
-        database.getReference("user_$email" + "/${SignUpInfo.BIRTHDAY}").setValue(tvBirth.text.toString())
+        database.getReference("user_$phNumber" + "/${SignUpInfo.NAME}").setValue(etName.text.toString())
+        database.getReference("user_$phNumber" + "/${SignUpInfo.NICKNAME}").setValue(etNickname.text.toString())
+        database.getReference("user_$phNumber" + "/${SignUpInfo.EMAIL}").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
+        database.getReference("user_$phNumber" + "/${SignUpInfo.PHONENUMBER}").setValue(phNumber.toString())
+        database.getReference("user_$phNumber" + "/${SignUpInfo.BIRTHDAY}").setValue(tvBirth.text.toString())
     }
 
     private fun Toast_SignUp(message : String, length: Int){
