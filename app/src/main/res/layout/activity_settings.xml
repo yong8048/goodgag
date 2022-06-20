@@ -24,27 +24,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/textview_edge_lightgray"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="10dp">
 
             <TextView
                 android:id="@+id/tvLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:padding="10dp"
                 android:text="로그인"
                 android:textColor="@color/black"/>
+
             <TextView
                 android:id="@+id/tvUserInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_weight="6"
                 android:padding="10dp"
-                android:text="로그인 상태" />
+                android:text="로그인 상태"
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -94,7 +95,7 @@
             android:id="@+id/tvModifyMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginHorizontal="10dp"
             android:background="@drawable/textview_edge_lightgray"
             android:padding="10dp"
             android:text="메뉴 편집"
@@ -225,13 +226,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/textview_edge_lightgray"
+            android:layout_marginHorizontal="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_weight="3"
                 android:padding="10dp"
                 android:text="버전"

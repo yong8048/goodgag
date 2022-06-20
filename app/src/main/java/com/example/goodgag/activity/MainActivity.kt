@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-
     var postList = arrayListOf<Post>(
         Post("1", "이승용", "2022.123"),
         Post("2", "오근혁", "2022./23"),
@@ -53,6 +52,11 @@ class MainActivity : AppCompatActivity() {
 
         //////////////////////////////////////// btnShare 클릭
         btnShare.setOnClickListener { Click_btnShare(it)  }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
     private fun CLick_btnSettings(view: View){
         var menuOption = PopupMenu(applicationContext, view)
