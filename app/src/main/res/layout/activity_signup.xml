@@ -42,8 +42,30 @@
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom" />
+                    android:layout_gravity="bottom"
+                    android:hint="2글자 이상"/>
             </LinearLayout>
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:gravity="left|center"
+                android:text="닉네임 : "
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/etNickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:hint="2글자 이상의 한글과 영어만" />
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,7 +113,8 @@
                     android:id="@+id/etPW"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:hint="6~15글자의 영문자와 숫자만"/>
 
             </LinearLayout>
 
@@ -173,8 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal">
+                android:layout_marginRight="10dp">
 
                 <TextView
                     android:layout_width="70dp"
@@ -183,9 +205,8 @@
                     android:text="생년월일 : "
                     android:textSize="15dp" />
 
-
-                <EditText
-                    android:id="@+id/etBirth"
+                <TextView
+                    android:id="@+id/tvBirth"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="left|center"

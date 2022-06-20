@@ -28,6 +28,7 @@
         <activity android:name=".activity.FindidpwActivity"></activity>
         <activity android:name=".activity.SignUpActivity"></activity>
         <activity android:name=".activity.MyPageActivity"></activity>
+        <activity android:name=".activity.DatePickerActivity"></activity>
     </application>
 
 </manifest>
