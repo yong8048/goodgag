@@ -43,7 +43,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:hint="2글자 이상"/>
+                    android:hint="2글자 이상"
+                    android:maxLength="6"/>
             </LinearLayout>
             <LinearLayout
             android:layout_width="match_parent"
@@ -64,7 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:hint="2글자 이상의 한글과 영어만" />
+                android:hint="2글자 이상의 한글과 영어만"
+                android:maxLength="8"/>
         </LinearLayout>
 
             <LinearLayout
@@ -79,7 +81,8 @@
                     android:layout_height="match_parent"
                     android:gravity="left|center"
                     android:text="이메일 : "
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:maxLength="20"/>
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -114,7 +117,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:inputType="textPassword"
-                    android:hint="6~15글자의 영문자와 숫자만"/>
+                    android:hint="6~15글자의 영문자와 숫자만"
+                    android:maxLength="15"/>
 
             </LinearLayout>
 
@@ -137,7 +141,8 @@
                     android:id="@+id/etPWcheck"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:maxLength="15"/>
 
             </LinearLayout>
 
@@ -174,7 +179,8 @@
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="" />
+                    android:text=""
+                    android:maxLength="4"/>
 
                 <TextView
                     android:layout_width="32dp"
@@ -188,7 +194,8 @@
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="" />
+                    android:text=""
+                    android:maxLength="4"/>
             </LinearLayout>
 
 

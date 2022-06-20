@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +13,6 @@ import com.example.goodgag.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_signup.*
-import java.io.Serializable
-import java.util.*
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -27,17 +24,12 @@ class SignUpActivity : AppCompatActivity() {
         BIRTHDAY
     }
     var firebasepath : FirebaseAuth? = null
-    var bSingUp : Boolean = true
     val database : FirebaseDatabase = FirebaseDatabase.getInstance()
     val namePattern = "^[ㄱ-ㅎ가-힣]{2,6}$"
     val pwPattern = "^[A-Za-z]{1,10}+[0-9]{1,20}$"
     val idPattern = "^[A-Za-z0-9]{1,10}$"
     val nicknamePattern = "^[ㄱ-ㅎ가-힣A-Za-z0-9]{2,8}$"
     val phonenumberPattern = "^\\d{3}-\\d{3,4}-\\d{4}$"
-
-    var year : Int = 0
-    var month : Int = 0
-    var day : Int = 0
 
     private lateinit var getResult : ActivityResultLauncher<Intent>
 
@@ -53,9 +45,9 @@ class SignUpActivity : AppCompatActivity() {
 
         getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if(it.resultCode == RESULT_OK){
-                year = it.data?.getIntExtra("year",0)!!
-                month = it.data?.getIntExtra("month",0)!!
-                day = it.data?.getIntExtra("day",0)!!
+                val year = it.data?.getIntExtra("year",0)!!
+                val month = it.data?.getIntExtra("month",0)!!
+                val day = it.data?.getIntExtra("day",0)!!
 
                 tvBirth.text = "$year" + "년" + " $month" + "월" + " $day" + "일"
             }
@@ -69,56 +61,55 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun Click_SignUp(view: View) {
-        bSingUp = true
         if(etName.text.toString() == ""){
-            Toast_SignUp("Name is empty", Toast.LENGTH_SHORT)
+            Short_Toast("Name is empty")
         }
         else if(!isFormatPattern(etName.text.toString(), namePattern)){
-            Toast_SignUp("Name is not allow",Toast.LENGTH_SHORT)
+            Short_Toast("Name is not allow")
         }
         else if(etNickname.text.toString() == ""){
-            Toast_SignUp("Nickname is empty", Toast.LENGTH_SHORT)
+            Short_Toast("Nickname is empty")
         }
         else if(!isFormatPattern(etNickname.text.toString(), nicknamePattern)){
-            Toast_SignUp("Nickname is not allow", Toast.LENGTH_SHORT)
+            Short_Toast("Nickname is not allow")
         }
         else if (etEmail.text.toString() == "") {
-            Toast_SignUp("Email is empty", Toast.LENGTH_SHORT)
+            Short_Toast("Email is empty")
         }
         else if(!isFormatPattern(etEmail.text.toString(),idPattern)){
-            Toast_SignUp("Email is not allow", Toast.LENGTH_SHORT)
+            Short_Toast("Email is not allow")
         }
         else if(etPW.text.toString() == "" || etPWcheck.text.toString() == ""){
-            Toast_SignUp("PassWord is empty", Toast.LENGTH_SHORT)
+            Short_Toast("PassWord is empty")
         }
         else if(!isFormatPattern(etPW.text.toString(),pwPattern) || etPW.text.length < 6){
-            Toast_SignUp("PassWord is not allow",Toast.LENGTH_SHORT)
+            Short_Toast("PassWord is not allow")
         }
         else if(etPW.text.toString() != etPWcheck.text.toString()){
-            Toast_SignUp("PassWord Mismatch", Toast.LENGTH_SHORT)
+            Short_Toast("PassWord Mismatch")
         }
         else if(etPhone1.text.toString() == "" || etPhone2.text.toString() == "" || etPhone3.text.toString() == ""){
-            Toast_SignUp("Phone Number is empty", Toast.LENGTH_SHORT)
+            Short_Toast("Phone Number is empty")
         }
         else if(etPhone1.text.toString().length != 3 || etPhone2.text.toString().toInt() < 100 || etPhone3.text.toString().toInt() < 1000){
-            Toast_SignUp("Phone Number is not allow", Toast.LENGTH_SHORT)
+            Short_Toast("Phone Number is not allow")
         }
         else if(tvBirth.text.toString() == ""){
-            Toast_SignUp("BirthDay is empty", Toast.LENGTH_SHORT)
+            Short_Toast("BirthDay is empty")
         }
-        if(bSingUp) {
+        else{
             firebasepath!!.createUserWithEmailAndPassword(
                 etEmail.text.toString().trim() + spMailList.selectedItem.toString().trim(),
                 etPW.text.toString().trim()
             ).addOnCompleteListener(this) {
                 if (it.isSuccessful) {
                     val user = firebasepath?.currentUser
-                    Toast_SignUp("Authentication Success", Toast.LENGTH_SHORT)
+                    Short_Toast("Authentication Success")
                     saveSignUpData()
                     finish()
                 }
                 else {
-                    Toast_SignUp("Authentication Fail!", Toast.LENGTH_SHORT)
+                    Short_Toast("Authentication Fail!")
                 }
             }
         }
@@ -139,8 +130,7 @@ class SignUpActivity : AppCompatActivity() {
         database.getReference("user_$phNumber" + "/${SignUpInfo.BIRTHDAY}").setValue(tvBirth.text.toString())
     }
 
-    private fun Toast_SignUp(message : String, length: Int){
-        bSingUp = false
-        Toast.makeText(this, message, length).show()
+    private fun Short_Toast(message : String){
+        Toast.makeText(this, message,Toast.LENGTH_SHORT).show()
     }
 }
