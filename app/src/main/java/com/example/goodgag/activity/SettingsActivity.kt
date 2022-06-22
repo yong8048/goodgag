@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.goodgag.R
+import com.example.goodgag.Singleton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserInfo
 import com.google.firebase.auth.ktx.auth
@@ -35,7 +36,10 @@ class SettingsActivity : AppCompatActivity(){
                 val nickname = it.data?.getStringExtra(SignUpActivity.SignUpInfo.NICKNAME.toString())!!
                 tvUserInfo.text = nickname.toString()
                 tvLogin.text = "로그아웃"
-//                var userInfo : UserInfo = UserInfo()
+//                database.child()
+                var userInfo : com.example.goodgag.data.UserInfo = com.example.goodgag.data.UserInfo(
+                    uName = "", uNickname = "", uEmail = "", uPhonenumber = "",uBirthday = "")
+                val sin = Singleton.getInstance(userInfo)
             }
         }
 
@@ -61,11 +65,9 @@ class SettingsActivity : AppCompatActivity(){
         else {
             var _email : String = auth!!.currentUser?.email.toString()
             var email : StringBuilder = StringBuilder().append(_email).deleteCharAt(_email.length - 4)
-            var test : String = ""
             database.child("user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
                 .addOnSuccessListener {
-                    test = it.value.toString()
-                    tvUserInfo.text = test
+                    tvUserInfo.text = it.value.toString()
                     tvLogin.text = "로그아웃"
                 }
         }

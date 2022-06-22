@@ -7,7 +7,7 @@ class Singleton private constructor(val userInfo : UserInfo) {
     companion object {
         @Volatile private var INSTANCE : Singleton? = null
 
-        fun getInstance(name : String) : Singleton =
+        fun getInstance(userInfo: UserInfo) : Singleton =
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: Singleton(userInfo = UserInfo()).also { INSTANCE = it }
             }
