@@ -4,11 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.renderscript.Sampler
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.goodgag.R
@@ -22,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import java.util.concurrent.Delayed
 
 
 class LoginActivity : AppCompatActivity() {
@@ -38,54 +43,40 @@ class LoginActivity : AppCompatActivity() {
 
         ///////////////////////////////////////////로그인 버튼
         btnLogin.setOnClickListener {
-            if(Login(etID.text.toString(), etPassword.text.toString())){
-
-                ///////////////////////////////////////// Login 후에 tvUserInfo에 Nickname 표시를 위해 SettingsActivity로 intent를 보낸다.
-                var email : StringBuilder = StringBuilder().append(etID.text.toString()).deleteCharAt(etID.text.toString().length - 4)
-                database.child("user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get().addOnSuccessListener {
-                    val intent = Intent(this, SettingsActivity::class.java).apply {
-                        putExtra(SignUpActivity.SignUpInfo.NICKNAME.toString(), it.value.toString())
+            var Email : String = etID.text.toString()
+            var password = etPassword.text.toString()
+            if (Email == "" || password == "") {
+                tvLoginError.visibility = View.VISIBLE
+                Toast.makeText(this, "Login fail", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                auth!!.signInWithEmailAndPassword(Email, password)
+                    .addOnCompleteListener(this) {
+                        if (it.isSuccessful) {
+                            ///////////////////////////////////////// Login 후에 tvUserInfo에 Nickname 표시를 위해 SettingsActivity로 intent를 보낸다.
+                            var email: StringBuilder = StringBuilder().append(etID.text.toString()).deleteCharAt(etID.text.toString().length - 4)
+                            database.child("user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
+                                .addOnSuccessListener {
+                                    val intent = Intent(this, SettingsActivity::class.java).apply {
+                                        putExtra(SignUpActivity.SignUpInfo.NICKNAME.toString(), it.value.toString())
+                                    }
+                                    setResult(RESULT_OK, intent)
+                                    finish()
+                                }
+                            Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show()
+                        } else {
+                            tvLoginError.visibility = View.VISIBLE
+                            Toast.makeText(this, "Login fail", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
             }
 
-
-
         }
+
         ///////////////////////////////////////////회원가입 버튼
         btnSignUp.setOnClickListener{ startActivity(Intent(this, SignUpActivity::class.java)) }
 
         ///////////////////////////////////////////아이디비번 찾기 텍스트뷰
         tvFindPrivacy.setOnClickListener { startActivity(Intent(this,FindidpwActivity::class.java)) }
-    }
-
-
-    private fun Login(email : String, password : String) : Boolean{
-        var bLogincheck : Boolean = false
-        if(email == "" || password == ""){
-            tvLoginError.visibility = View.VISIBLE
-            Toast.makeText(this, "Login fail", Toast.LENGTH_SHORT).show()
-        } else {
-            auth!!.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) {
-                    if (it.isSuccessful) {
-                        Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show()
-                        val user = auth?.currentUser
-//                        ViewUserInfo(email)
-                        bLogincheck = true
-                    } else {
-                        tvLoginError.visibility = View.VISIBLE
-                        Toast.makeText(this, "Login fail", Toast.LENGTH_SHORT).show()
-                    }
-                }
-        }
-        return bLogincheck
-    }
-    private fun ViewUserInfo(email : String){
-
-        tvUserInfo.text = email
-        tvUserInfo.setTextColor(ContextCompat.getColor(this,R.color.black))
     }
 }
