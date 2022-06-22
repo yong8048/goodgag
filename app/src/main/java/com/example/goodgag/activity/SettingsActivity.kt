@@ -12,12 +12,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_signup.*
 
 class SettingsActivity : AppCompatActivity(){
 
     var auth : FirebaseAuth? = null
-    private lateinit var getResult : ActivityResultLauncher<Intent>
+    private lateinit var ResLogin : ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -25,10 +24,10 @@ class SettingsActivity : AppCompatActivity(){
         auth = Firebase.auth
         Initialize()
 
-        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        ResLogin = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             if(it.resultCode == RESULT_OK){
-                val email = it.data?.getStringExtra("email")!!
-                tvUserInfo.text = email.toString()
+                val nickname = it.data?.getStringExtra(SignUpActivity.SignUpInfo.NICKNAME.toString())!!
+                tvUserInfo.text = nickname.toString()
                 tvLogin.text = "로그아웃"
             }
         }
@@ -36,7 +35,7 @@ class SettingsActivity : AppCompatActivity(){
         tvLogin.setOnClickListener {
             if(auth!!.currentUser == null) {
                 var intent = Intent(this, LoginActivity::class.java)
-                getResult.launch(intent)
+                ResLogin.launch(intent)
             }
             else{
                 auth!!.signOut()
@@ -45,8 +44,8 @@ class SettingsActivity : AppCompatActivity(){
         }
 
         swPushSetting.setOnClickListener { }
-
     }
+
     private fun Initialize(){
         if (auth!!.currentUser == null) {
             tvUserInfo.text = ""
