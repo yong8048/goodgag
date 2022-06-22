@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.SettingsActivity"></activity>
         <activity android:name=".activity.LoginActivity"></activity>
@@ -29,6 +30,13 @@
         <activity android:name=".activity.SignUpActivity"></activity>
         <activity android:name=".activity.MyPageActivity"></activity>
         <activity android:name=".activity.DatePickerActivity"></activity>
+        <service
+            android:name=".activity.PushCloudMessaging"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

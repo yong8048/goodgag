@@ -26,7 +26,7 @@
                 android:background="@color/color_main"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="asdasd +_+"
+                android:text="고급유머 +_+"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
