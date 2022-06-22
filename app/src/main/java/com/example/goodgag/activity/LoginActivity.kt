@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.goodgag.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserInfo
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
@@ -28,7 +27,6 @@ import com.google.firebase.database.ktx.database
 class LoginActivity : AppCompatActivity() {
 
     var auth : FirebaseAuth? = null
-    var bLogincheck : Boolean = false
     private lateinit var database : DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,17 +38,21 @@ class LoginActivity : AppCompatActivity() {
 
         ///////////////////////////////////////////로그인 버튼
         btnLogin.setOnClickListener {
-            Login(etID.text.toString(), etPassword.text.toString())
+            if(Login(etID.text.toString(), etPassword.text.toString())){
 
-            ///////////////////////////////////////// Login 후에 tvUserInfo에 Nickname 표시를 위해 SettingsActivity로 intent를 보낸다.
-            var email : StringBuilder = StringBuilder().append(etID.text.toString()).deleteCharAt(etID.text.toString().length - 4)
-            database.child("user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get().addOnSuccessListener {
-                val intent = Intent(this, SettingsActivity::class.java).apply {
-                    putExtra(SignUpActivity.SignUpInfo.NICKNAME.toString(), it.value.toString())
+                ///////////////////////////////////////// Login 후에 tvUserInfo에 Nickname 표시를 위해 SettingsActivity로 intent를 보낸다.
+                var email : StringBuilder = StringBuilder().append(etID.text.toString()).deleteCharAt(etID.text.toString().length - 4)
+                database.child("user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get().addOnSuccessListener {
+                    val intent = Intent(this, SettingsActivity::class.java).apply {
+                        putExtra(SignUpActivity.SignUpInfo.NICKNAME.toString(), it.value.toString())
+                    }
+                    setResult(RESULT_OK, intent)
+                    finish()
                 }
-                setResult(RESULT_OK, intent)
-                finish()
             }
+
+
+
         }
         ///////////////////////////////////////////회원가입 버튼
         btnSignUp.setOnClickListener{ startActivity(Intent(this, SignUpActivity::class.java)) }
@@ -60,7 +62,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    private fun Login(email : String, password : String) {
+    private fun Login(email : String, password : String) : Boolean{
+        var bLogincheck : Boolean = false
         if(email == "" || password == ""){
             tvLoginError.visibility = View.VISIBLE
             Toast.makeText(this, "Login fail", Toast.LENGTH_SHORT).show()
@@ -78,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
         }
+        return bLogincheck
     }
     private fun ViewUserInfo(email : String){
 
