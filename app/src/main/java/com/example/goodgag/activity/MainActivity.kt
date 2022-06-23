@@ -9,6 +9,7 @@ import android.widget.PopupMenu
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
+import com.example.goodgag.user.UserManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -52,6 +53,12 @@ class MainActivity : AppCompatActivity() {
 
         //////////////////////////////////////// btnShare 클릭
         btnShare.setOnClickListener { Click_btnShare(it)  }
+
+        btnBefore.setOnClickListener{
+            //20220623 LBW SingleTone Test
+            val userInfo = UserManager.getinstance(this)
+            tvTest1.text = userInfo.Birthday
+        }
     }
 
     override fun onDestroy() {
