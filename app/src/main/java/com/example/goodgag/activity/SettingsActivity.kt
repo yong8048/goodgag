@@ -51,7 +51,6 @@ class SettingsActivity : AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val data = snapshot.child("USERS/user_$email")
                         for (_data in data.children) {
-//                            Log.e("snap",_data.toString())
                             userData[index++] = _data.value.toString()
                         }
                         val userInfo = UserManager.getinstance(this@SettingsActivity)
@@ -80,7 +79,9 @@ class SettingsActivity : AppCompatActivity() {
         
         //임시
         tvUserInfo.setOnClickListener{
-            startActivity(Intent(this,MyPageActivity::class.java))
+            if(auth!!.currentUser != null){
+                startActivity(Intent(this,MyPageActivity::class.java))
+            }
         }
 
         swPushSetting.setOnClickListener { }
@@ -91,14 +92,8 @@ class SettingsActivity : AppCompatActivity() {
             tvUserInfo.text = ""
             tvLogin.text = "로그인"
         } else {
-            var _email: String = auth!!.currentUser?.email.toString()
-            var email: StringBuilder =
-                StringBuilder().append(_email).deleteCharAt(_email.length - 4)
-            database.child("USERS/user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
-                .addOnSuccessListener {
-                    tvUserInfo.text = it.value.toString()
-                    tvLogin.text = "로그아웃"
-                }
+            tvUserInfo.text = UserManager.getinstance(this@SettingsActivity).Nickname
+            tvLogin.text = "로그아웃"
         }
         tvVersion.text = getVersion(this)
     }

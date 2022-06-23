@@ -26,7 +26,7 @@ tools:context=".activity.MyPageActivity">
 
     <EditText
         android:backgroundTint="@color/black"
-        android:id="@+id/ed_email"
+        android:id="@+id/etMypageEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -56,7 +56,7 @@ tools:context=".activity.MyPageActivity">
 
     <EditText
         android:backgroundTint="@color/black"
-        android:id="@+id/ed_id"
+        android:id="@+id/etMypageNickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -83,7 +83,7 @@ tools:context=".activity.MyPageActivity">
 
     <EditText
         android:backgroundTint="@color/black"
-        android:id="@+id/ed_name"
+        android:id="@+id/etMypageName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
@@ -112,7 +112,7 @@ tools:context=".activity.MyPageActivity">
     <EditText
         android:hint="현재 비밀번호 입력"
         android:backgroundTint="@color/black"
-        android:id="@+id/ed_pw"
+        android:id="@+id/etMypagePW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -126,7 +126,7 @@ tools:context=".activity.MyPageActivity">
         android:backgroundTint="@color/black"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:id="@+id/modify_btn"
+        android:id="@+id/btnMypageModify"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -154,7 +154,7 @@ tools:context=".activity.MyPageActivity">
 
     <EditText
         android:backgroundTint="@color/black"
-        android:id="@+id/ed_phone"
+        android:id="@+id/etMypagePhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -183,7 +183,7 @@ tools:context=".activity.MyPageActivity">
 
     <EditText
         android:backgroundTint="@color/black"
-        android:id="@+id/ed_birth"
+        android:id="@+id/etMypageBirth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
@@ -198,7 +198,7 @@ tools:context=".activity.MyPageActivity">
     android:backgroundTint="@color/black"
     android:textColor="@color/white"
     android:textStyle="bold"
-    android:id="@+id/Exit_btn"
+    android:id="@+id/btnSignOut"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
