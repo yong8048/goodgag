@@ -1,13 +1,17 @@
 package com.example.goodgag.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.goodgag.R
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_findidpw.*
 
@@ -28,26 +32,71 @@ class FindidpwActivity : AppCompatActivity(){
     private fun Click_btnFindID(view: View){
         val datebase : FirebaseDatabase = FirebaseDatabase.getInstance()
         var FindPhone : String = etFindIDPhone.text.toString()
-        var userPhone = FirebaseDatabase.getInstance().getReference("user_" + FindPhone).child("PHONENUMBER")
-        var userName = FirebaseDatabase.getInstance().getReference("user_"+FindPhone).child("NAME")
-        var userEmail = FirebaseDatabase.getInstance().getReference("user_"+FindPhone).child("EMAIL")
+        var email : StringBuilder = StringBuilder()
 
-//        if(userPhone.toString() == FindPhone && etFindIDName.text.toString() == userName.toString())
-//            Toast.makeText(this, "아이디 찾기\n" + userEmail, Toast.LENGTH_LONG)
+        database.reference.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var data = snapshot.child("USERS")
+                for(_data in data.children){
+                    for(__data in _data.children){
+                        if(__data.value.toString() == FindPhone){
+                            break
+                        }
+                    }
+                    email.append(_data.key.toString())
+                }
+                data = snapshot.child("USERS/${email.toString()}")
+                var index : Int = 0
+                val userData = Array<String>(5){""}
+                for(_data in data.children){
+                    userData[index++] = _data.value.toString()
+                }
+                var userPhone = userData[SignUpActivity.SignUpInfo.PHONENUMBER.num].toString()
+                var userName = userData[SignUpActivity.SignUpInfo.NAME.num].toString()
+                var userEmail = userData[SignUpActivity.SignUpInfo.EMAIL.num].toString()
+                email.delete(0, 5)
+                if(userPhone.toString().equals(etFindIDPhone.text.toString()) && userName.toString().equals(etFindIDName.text.toString()))
+                    Toast.makeText(this@FindidpwActivity, "아이디찾기 성공\n${email.insert(email.length -3, ".").toString()}", Toast.LENGTH_SHORT).show()
+            }
 
-        if(userPhone.toString().equals(etFindIDPhone.text.toString()) && userName.toString().equals(etFindIDName.text.toString()))
-            Toast.makeText(this, "아이디찾기 성공\n", Toast.LENGTH_SHORT)
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+
     }
     private  fun Click_btnFindPW(view: View){
+        var email : StringBuilder = StringBuilder().append(etFindPWEmail.text.toString())
+        email.deleteCharAt(email.length- 4)
+        var FindPhone : String = etFindIDPhone.text.toString()
+        val userData = Array<String>(5) { "" }
+        var index: Int = 0
 
-        FirebaseAuth.getInstance().sendPasswordResetEmail(etFindEmail.text.toString()).addOnCompleteListener {
-            if(it.isSuccessful){
-                var userName = FirebaseDatabase.getInstance().getReference("user").child("name")
-                var userBirth = FirebaseDatabase.getInstance().getReference("user").child("birth")
-                Toast.makeText(this, "비밀번호 변경 메일을 전송했습니다", Toast.LENGTH_LONG).show()
-            }else{
-                Toast.makeText(this, it.exception.toString(), Toast.LENGTH_LONG).show()
+        database.reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var data = snapshot.child("USERS/user_${email.toString()}")
+                for (_data in data.children) {
+                    userData[index++] = _data.value.toString()
+                    Log.e("snap", _data.toString())
+                }
+                var userPhone = userData[SignUpActivity.SignUpInfo.PHONENUMBER.num].toString()
+                var userName = userData[SignUpActivity.SignUpInfo.NAME.num].toString()
+                var userEmail = userData[SignUpActivity.SignUpInfo.EMAIL.num].toString()
+
+                if (userPhone.toString().equals(etFindPWPhone.text.toString())
+                    && userName.toString().equals(etFindPWName.text.toString())) {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(etFindPWEmail.text.toString()).addOnCompleteListener{
+                        if(it.isSuccessful){
+                            Toast.makeText(this@FindidpwActivity,"비밀번호 변경 메일을 전송했습니다", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+                else{
+                    Toast.makeText(this@FindidpwActivity,"정보가 일치하지 않습니다.", Toast.LENGTH_LONG).show()
+                }
             }
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 }

@@ -18,12 +18,12 @@ import kotlinx.android.synthetic.main.activity_signup.*
 
 
 class SignUpActivity : AppCompatActivity() {
-    enum class SignUpInfo {
-        NAME,
-        NICKNAME,
-        EMAIL,
-        PHONENUMBER,
-        BIRTHDAY
+    enum class SignUpInfo (val num : Int) {
+        BIRTHDAY(0),
+        EMAIL(1),
+        NAME(2),
+        NICKNAME(3),
+        PHONENUMBER(4),
     }
     var firebasepath : FirebaseAuth? = null
     val database : FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -127,11 +127,11 @@ class SignUpActivity : AppCompatActivity() {
         useremail.deleteCharAt(useremail.toString().length - 4)
 
         var phNumber = etPhone1.text.toString().plus(etPhone2.text.toString()).plus(etPhone3.text.toString())
-        database.getReference("user_$useremail" + "/${SignUpInfo.NAME}").setValue(etName.text.toString())
-        database.getReference("user_$useremail" + "/${SignUpInfo.NICKNAME}").setValue(etNickname.text.toString())
-        database.getReference("user_$useremail" + "/${SignUpInfo.EMAIL}").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
-        database.getReference("user_$useremail" + "/${SignUpInfo.PHONENUMBER}").setValue(phNumber.toString())
-        database.getReference("user_$useremail" + "/${SignUpInfo.BIRTHDAY}").setValue(tvBirth.text.toString())
+        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.NAME}").setValue(etName.text.toString())
+        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.NICKNAME}").setValue(etNickname.text.toString())
+        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.EMAIL}").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
+        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.PHONENUMBER}").setValue(phNumber.toString())
+        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.BIRTHDAY}").setValue(tvBirth.text.toString())
     }
 
     private fun Short_Toast(message : String){

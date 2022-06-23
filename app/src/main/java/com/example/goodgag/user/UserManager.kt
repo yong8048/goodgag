@@ -29,4 +29,11 @@ class UserManager private constructor(context : Context){
         this.Phonenumber = Phonenumber
         this.Birthday = Birthday
     }
+    fun clearUser(){
+        this.Name = ""
+        this.Nickname = ""
+        this.Email = ""
+        this.Phonenumber = ""
+        this.Birthday = ""
+    }
 }

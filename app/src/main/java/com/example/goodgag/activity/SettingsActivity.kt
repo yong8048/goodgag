@@ -49,7 +49,7 @@ class SettingsActivity : AppCompatActivity() {
                 var index: Int = 0
                 database.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val data = snapshot.child("user_$email")
+                        val data = snapshot.child("USERS/user_$email")
                         for (_data in data.children) {
 //                            Log.e("snap",_data.toString())
                             userData[index++] = _data.value.toString()
@@ -74,7 +74,7 @@ class SettingsActivity : AppCompatActivity() {
             } else {
                 auth!!.signOut()
                 Initialize()
-                UserManager.getinstance(this).registUser("","","","","")
+                UserManager.getinstance(this).clearUser()
             }
         }
 
@@ -89,7 +89,7 @@ class SettingsActivity : AppCompatActivity() {
             var _email: String = auth!!.currentUser?.email.toString()
             var email: StringBuilder =
                 StringBuilder().append(_email).deleteCharAt(_email.length - 4)
-            database.child("user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
+            database.child("USERS/user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
                 .addOnSuccessListener {
                     tvUserInfo.text = it.value.toString()
                     tvLogin.text = "로그아웃"

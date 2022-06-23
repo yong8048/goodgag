@@ -16,7 +16,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.goodgag.R
-import com.example.goodgag.Singleton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -56,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             ///////////////////////////////////////// Login 후에 tvUserInfo에 Nickname 표시를 위해 SettingsActivity로 intent를 보낸다.
                             var email: StringBuilder = StringBuilder().append(etID.text.toString()).deleteCharAt(etID.text.toString().length - 4)
-                            database.child("user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
+                            database.child("USERS_user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
                                 .addOnSuccessListener {
                                     val intent = Intent(this, SettingsActivity::class.java).apply {
                                         putExtra(SignUpActivity.SignUpInfo.NICKNAME.toString(), it.value.toString())
