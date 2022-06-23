@@ -69,9 +69,11 @@ class MainActivity : AppCompatActivity() {
 
         btnBefore.setOnClickListener{
             //20220623 LBW SingleTone Test
-            tv_Main.text = UserManager.ExistInstance().toString()
-            UserManager.getinstance(this).registUser("","","","","")
-            tv_Main.text = UserManager.ExistInstance().toString()
+            Log.e("SEX","${UserManager.getinstance(this).Email}")
+            Log.e("SEX","${UserManager.getinstance(this).Name}")
+            Log.e("SEX","${UserManager.getinstance(this).Nickname}")
+            Log.e("SEX","${UserManager.getinstance(this).Phonenumber}")
+            Log.e("SEX","${UserManager.getinstance(this).Birthday}")
         }
     }
 
