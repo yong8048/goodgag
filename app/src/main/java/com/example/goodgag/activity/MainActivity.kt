@@ -3,13 +3,18 @@ package com.example.goodgag.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
+import android.widget.Toast
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
 import com.example.goodgag.user.UserManager
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -44,15 +49,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //토큰값 가져오기 -> 새기기 or 앱삭제 재설치 or 앱 데이터 소거시 토큰 초기화
+        GetToken()
+
         lv_main.adapter = MainListAdapter(this, postList)
 
         btnListNext.setSingleLine()
+        //////////////////////////////////////// 상단 새로고침
+        tv_Main.setOnClickListener { ClickRefresh(it) }
 
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
         //////////////////////////////////////// btnSettings 클릭
         btnSettings.setOnClickListener { CLick_btnSettings(it) }
 
         //////////////////////////////////////// btnShare 클릭
         btnShare.setOnClickListener { Click_btnShare(it)  }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
 
         btnBefore.setOnClickListener{
             //20220623 LBW SingleTone Test
@@ -106,5 +119,22 @@ class MainActivity : AppCompatActivity() {
         var menuShare = PopupMenu(applicationContext, view)
         menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
         menuShare.show()
+    }
+
+    private fun GetToken(){
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener(OnCompleteListener {
+                if (!it.isSuccessful) {
+                    Log.d("FCM Log", "getInstanceId failed", it.exception)
+                    return@OnCompleteListener
+                }
+                val token : String = it.result
+                Log.d("FCM Log", "FCM 토큰: $token")
+                Toast.makeText(this@MainActivity, token, Toast.LENGTH_SHORT).show()
+            })
+    }
+
+    private fun ClickRefresh(view : View){
+
     }
 }

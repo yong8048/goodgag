@@ -23,9 +23,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:background="@drawable/textview_edge_lightgray"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="10dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tvLogin"
@@ -34,7 +34,7 @@
                 android:layout_weight="4"
                 android:padding="10dp"
                 android:text="로그인"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvUserInfo"
@@ -45,10 +45,10 @@
                 android:layout_weight="6"
                 android:padding="10dp"
                 android:text="로그인 상태"
-                android:textAlignment="center"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black"
                 android:textSize="15dp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,12 +66,13 @@
                 android:layout_weight="2"
                 android:padding="10dp"
                 android:text="푸시설정"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <Switch
                 android:id="@+id/swPushSetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="8"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -100,10 +101,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/textview_edge_lightgray"
+            android:gravity="fill"
             android:padding="10dp"
             android:text="메뉴 편집"
-            android:textColor="@color/black"
-            android:gravity="fill"/>
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,12 +121,13 @@
                 android:layout_weight="2"
                 android:padding="10dp"
                 android:text="다크모드"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <Switch
                 android:id="@+id/swDarkMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="8"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -135,14 +137,14 @@
             android:id="@+id/tvRemoveAds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/textview_edge_lightgray"
+            android:gravity="fill"
             android:padding="10dp"
             android:text="광고제거 구독하기"
-            android:textColor="@color/black"
-            android:gravity="fill"/>
+            android:textColor="@color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -159,12 +161,13 @@
                 android:layout_weight="2"
                 android:padding="10dp"
                 android:text="확대모드"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <Switch
                 android:id="@+id/swCloseUpMode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="8"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -185,12 +188,13 @@
                 android:layout_weight="2"
                 android:padding="10dp"
                 android:text="이어보기"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <Switch
                 android:id="@+id/swFollowUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="8"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -200,14 +204,14 @@
             android:id="@+id/tvDeleteCash"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/textview_edge_lightgray"
+            android:gravity="fill"
             android:padding="10dp"
             android:text="캐시 삭제"
-            android:textColor="@color/black"
-            android:gravity="fill"/>
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <LinearLayout
@@ -228,8 +232,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/textview_edge_lightgray"
             android:layout_marginHorizontal="10dp"
+            android:background="@drawable/textview_edge_lightgray"
             android:orientation="horizontal">
 
             <TextView
@@ -238,7 +242,7 @@
                 android:layout_weight="3"
                 android:padding="10dp"
                 android:text="버전"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/tvVersion"
@@ -250,7 +254,7 @@
                 android:padding="10dp"
                 android:text="EX) 2.0.0"
                 android:textAlignment="textEnd"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black" />
         </LinearLayout>
 
         <TextView
