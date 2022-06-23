@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             ///////////////////////////////////////// Login 후에 tvUserInfo에 Nickname 표시를 위해 SettingsActivity로 intent를 보낸다.
                             var email: StringBuilder = StringBuilder().append(etID.text.toString()).deleteCharAt(etID.text.toString().length - 4)
-                            database.child("USERS_user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
+                            database.child("USERS/user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
                                 .addOnSuccessListener {
                                     val intent = Intent(this, SettingsActivity::class.java).apply {
                                         putExtra(SignUpActivity.SignUpInfo.NICKNAME.toString(), it.value.toString())

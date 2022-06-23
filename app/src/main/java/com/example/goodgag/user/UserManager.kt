@@ -20,7 +20,11 @@ class UserManager private constructor(context : Context){
                     instance = it
                 }
             }
+        fun ExistInstance() : Boolean{
+            return instance != null
+        }
     }
+
 
     fun registUser(Birthday : String, Email : String, Name : String, Nickname : String, Phonenumber : String){
         this.Name = Name
@@ -35,5 +39,7 @@ class UserManager private constructor(context : Context){
         this.Email = ""
         this.Phonenumber = ""
         this.Birthday = ""
+
+        instance = null
     }
 }

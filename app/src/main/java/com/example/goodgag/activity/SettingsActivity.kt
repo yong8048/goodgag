@@ -77,6 +77,11 @@ class SettingsActivity : AppCompatActivity() {
                 UserManager.getinstance(this).clearUser()
             }
         }
+        
+        //임시
+        tvUserInfo.setOnClickListener{
+            startActivity(Intent(this,MyPageActivity::class.java))
+        }
 
         swPushSetting.setOnClickListener { }
     }

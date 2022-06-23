@@ -59,8 +59,7 @@ class FindidpwActivity : AppCompatActivity(){
                     Toast.makeText(this@FindidpwActivity, "아이디찾기 성공\n${email.insert(email.length -3, ".").toString()}", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onCancelled(error: DatabaseError) {
-            }
+            override fun onCancelled(error: DatabaseError) { }
         })
 
     }
@@ -95,8 +94,7 @@ class FindidpwActivity : AppCompatActivity(){
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-            }
+            override fun onCancelled(error: DatabaseError) { }
         })
     }
 }

@@ -56,8 +56,9 @@ class MainActivity : AppCompatActivity() {
 
         btnBefore.setOnClickListener{
             //20220623 LBW SingleTone Test
-            val userInfo = UserManager.getinstance(this)
-            tvTest1.text = userInfo.Birthday
+            tv_Main.text = UserManager.ExistInstance().toString()
+            UserManager.getinstance(this).registUser("","","","","")
+            tv_Main.text = UserManager.ExistInstance().toString()
         }
     }
 
