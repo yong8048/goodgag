@@ -33,7 +33,7 @@
         <activity android:name=".activity.MyPageActivity"></activity>
         <activity android:name=".activity.DatePickerActivity"></activity>
         <service
-            android:name=".activity.PushCloudMessaging"
+            android:name=".PushCloudMessaging"
             android:exported="false"
             android:stopWithTask="false">
             <intent-filter>
