@@ -53,7 +53,6 @@ class MyPageActivity : AppCompatActivity() {
             email.deleteCharAt(email.length - 4)
 
             if(UserManager.getinstance(this).Nickname != etMypageNickname.text.toString()){
-//                database.getReference("USERS/user_$email" + "/${SignUpActivity.SignUpInfo.NICKNAME}").setValue(null)
                 database.getReference("USERS/user_$email" + "/${SignUpActivity.SignUpInfo.NICKNAME.toString()}").setValue(etMypageNickname.text.toString())
             }
             if(UserManager.getinstance(this).Phonenumber != etMypagePhone.text.toString()){
@@ -65,13 +64,11 @@ class MyPageActivity : AppCompatActivity() {
     }
 
     private fun Initialize(){
-//        for(data in )
         etMypageBirth.setText(UserManager.getinstance(this).Birthday)
         etMypageNickname.setText(UserManager.getinstance(this).Nickname)
         etMypageName.setText(UserManager.getinstance(this).Name)
         etMypagePhone.setText(UserManager.getinstance(this).Phonenumber)
         etMypageEmail.setText(UserManager.getinstance(this).Email)
-
     }
     private fun tostring (edittext : EditText) : String{
         return edittext.text.toString()

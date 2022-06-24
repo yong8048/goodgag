@@ -30,7 +30,6 @@ class FindidpwActivity : AppCompatActivity(){
         btnFindPW.setOnClickListener { Click_btnFindPW(it) }
     }
     private fun Click_btnFindID(view: View){
-        val datebase : FirebaseDatabase = FirebaseDatabase.getInstance()
         var FindPhone : String = etFindIDPhone.text.toString()
         var email : StringBuilder = StringBuilder()
 
@@ -66,7 +65,6 @@ class FindidpwActivity : AppCompatActivity(){
     private  fun Click_btnFindPW(view: View){
         var email : StringBuilder = StringBuilder().append(etFindPWEmail.text.toString())
         email.deleteCharAt(email.length- 4)
-        var FindPhone : String = etFindIDPhone.text.toString()
         val userData = Array<String>(5) { "" }
         var index: Int = 0
 
