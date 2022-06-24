@@ -15,6 +15,7 @@ import com.example.goodgag.Post
 import com.example.goodgag.R
 import com.example.goodgag.user.UserManager
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -81,12 +82,12 @@ class MainActivity : AppCompatActivity() {
 
         btnListNext.setSingleLine()
         //////////////////////////////////////// 상단 새로고침
-        tv_Main.setOnClickListener { Click_Refresh(it) }
+        tv_Main.setOnClickListener { ClickRefresh(it) }
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
         //////////////////////////////////////// btnSettings 클릭
-        btnSettings.setOnClickListener { Click_btnSettings(it) }
+        btnSettings.setOnClickListener { CLick_btnSettings(it) }
 
         //////////////////////////////////////// btnShare 클릭
         btnShare.setOnClickListener { Click_btnShare(it)  }
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
     }
-    private fun Click_btnSettings(view: View){
+    private fun CLick_btnSettings(view: View){
         var menuOption = PopupMenu(applicationContext, view)
         menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
         menuOption.show()
@@ -161,7 +162,7 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun Click_Refresh(view : View){
+    private fun ClickRefresh(view : View){
 
     }
 
@@ -172,10 +173,13 @@ class MainActivity : AppCompatActivity() {
         for (i in 0 until listAdapter.count) {
             var listItem: View = listAdapter.getView(i, null, lv_main);
             listItem.measure(0,0)
-            totalHeight += listItem.measuredHeight
+            totalHeight += listItem.measuredHeight + 4
         }
+        var params :ViewGroup.LayoutParams = lv_main.layoutParams
 
-        lv_main.layoutParams.height = totalHeight
+        params.height = totalHeight + 4
+        lv_main.layoutParams = params
+
         lv_main.requestLayout()
     }
 }
