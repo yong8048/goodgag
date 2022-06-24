@@ -36,35 +36,35 @@ class MainActivity : AppCompatActivity() {
         Post("13", "이승용", "2022.123"),
         Post("14", "이병욱", "2022./23"),
         Post("15", "이승용", "2022.123"),
-        Post("16", "이병욱", "2022./23"),
-        Post("17", "이승용", "2022.123"),
-        Post("18", "이병욱", "2022./23"),
-        Post("19", "이승용", "2022.123"),
-        Post("20", "이병욱", "2022./23"),
-        Post("21", "이승용", "2022.123"),
-        Post("22", "이병욱", "2022./23"),
-        Post("1", "이승용", "2022.123"),
-        Post("2", "오근혁", "2022./23"),
-        Post("3", "조명철", "2022.123"),
-        Post("4", "오근혁", "2022./23"),
-        Post("5", "조명철", "2022.123"),
-        Post("6", "오근혁", "2022./23"),
-        Post("7", "조명철", "2022.123"),
-        Post("8", "오근혁", "2022./23"),
-        Post("9", "조명철", "2022.123"),
-        Post("10", "조명철", "2022./23"),
-        Post("11", "조명철", "2022.123"),
-        Post("12", "조명철", "2022./23"),
-        Post("13", "이승용", "2022.123"),
-        Post("14", "이병욱", "2022./23"),
-        Post("15", "이승용", "2022.123"),
-        Post("16", "이병욱", "2022./23"),
-        Post("17", "이승용", "2022.123"),
-        Post("18", "이병욱", "2022./23"),
-        Post("19", "이승용", "2022.123"),
-        Post("20", "이병욱", "2022./23"),
-        Post("21", "이승용", "2022.123"),
-        Post("22", "이병욱", "2022./23")
+//        Post("16", "이병욱", "2022./23"),
+//        Post("17", "이승용", "2022.123"),
+//        Post("18", "이병욱", "2022./23"),
+//        Post("19", "이승용", "2022.123"),
+//        Post("20", "이병욱", "2022./23"),
+//        Post("21", "이승용", "2022.123"),
+//        Post("22", "이병욱", "2022./23"),
+//        Post("1", "이승용", "2022.123"),
+//        Post("2", "오근혁", "2022./23"),
+//        Post("3", "조명철", "2022.123"),
+//        Post("4", "오근혁", "2022./23"),
+//        Post("5", "조명철", "2022.123"),
+//        Post("6", "오근혁", "2022./23"),
+//        Post("7", "조명철", "2022.123"),
+//        Post("8", "오근혁", "2022./23"),
+//        Post("9", "조명철", "2022.123"),
+//        Post("10", "조명철", "2022./23"),
+//        Post("11", "조명철", "2022.123"),
+//        Post("12", "조명철", "2022./23"),
+//        Post("13", "이승용", "2022.123"),
+//        Post("14", "이병욱", "2022./23"),
+//        Post("15", "이승용", "2022.123"),
+//        Post("16", "이병욱", "2022./23"),
+//        Post("17", "이승용", "2022.123"),
+//        Post("18", "이병욱", "2022./23"),
+//        Post("19", "이승용", "2022.123"),
+//        Post("20", "이병욱", "2022./23"),
+//        Post("21", "이승용", "2022.123"),
+//        Post("22", "이병욱", "2022./23")
     )
     var b : Boolean = true
 
@@ -168,17 +168,14 @@ class MainActivity : AppCompatActivity() {
     private fun ListViewHeightSize(){
         var listAdapter : ListAdapter = lv_main.adapter
         var totalHeight: Int = 0
-        var desiredWidth: Int = View.MeasureSpec.makeMeasureSpec(lv_main.width, View.MeasureSpec.AT_MOST)
+
         for (i in 0 until listAdapter.count) {
             var listItem: View = listAdapter.getView(i, null, lv_main);
-            lv_main.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED)
-            totalHeight += lv_main.measuredHeight
+            listItem.measure(0,0)
+            totalHeight += listItem.measuredHeight
         }
-        var params :ViewGroup.LayoutParams = lv_main.layoutParams
 
-        params.height = totalHeight / 2
-        lv_main.layoutParams = params
-
+        lv_main.layoutParams.height = totalHeight
         lv_main.requestLayout()
     }
 }
