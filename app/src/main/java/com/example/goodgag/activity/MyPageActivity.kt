@@ -53,13 +53,14 @@ class MyPageActivity : AppCompatActivity() {
             email.deleteCharAt(email.length - 4)
 
             if(UserManager.getinstance(this).Nickname != etMypageNickname.text.toString()){
-                database.getReference("USERS/user_$email" + "/${SignUpActivity.SignUpInfo.NICKNAME}").setValue(etMypageNickname.text.toString())
+//                database.getReference("USERS/user_$email" + "/${SignUpActivity.SignUpInfo.NICKNAME}").setValue(null)
+                database.getReference("USERS/user_$email" + "/${SignUpActivity.SignUpInfo.NICKNAME.toString()}").setValue(etMypageNickname.text.toString())
             }
             if(UserManager.getinstance(this).Phonenumber != etMypagePhone.text.toString()){
-                database.getReference("USERS/user_$email" + "/${SignUpActivity.SignUpInfo.PHONENUMBER}").setValue(etMypagePhone.text.toString())
+                database.getReference("USERS/user_$email" + "/${SignUpActivity.SignUpInfo.PHONENUMBER.toString()}").setValue(etMypagePhone.text.toString())
             }
-            UserManager.getinstance(this).registUser(tostring(etMypageEmail),tostring(etMypageNickname),tostring(etMypageName),tostring(etMypagePhone),tostring(etMypageBirth))
-            Toast.makeText(this,"${UserManager.getinstance(this).Nickname}",Toast.LENGTH_SHORT).show()
+            UserManager.getinstance(this).registUser(tostring(etMypageBirth),tostring(etMypageEmail),tostring(etMypageName),tostring(etMypageNickname),tostring(etMypagePhone))
+            finish()
         }
     }
 

@@ -42,10 +42,10 @@ class SplashActivity : AppCompatActivity() {
         var _email: String = auth!!.currentUser?.email.toString()
         var email: StringBuilder = StringBuilder().append(_email).deleteCharAt(_email.length - 4)
         val userData = Array<String>(5){""}
-        var index: Int = 0
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val data = snapshot.child("USERS/user_${email.toString()}")
+                var index: Int = 0
                 for(_data in data.children){
                     userData[index++] = _data.value.toString()
                 }

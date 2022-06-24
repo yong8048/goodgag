@@ -87,6 +87,11 @@ class SettingsActivity : AppCompatActivity() {
         swPushSetting.setOnClickListener { }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        Initialize()
+    }
+
     private fun Initialize() {
         if (auth!!.currentUser == null) {
             tvUserInfo.text = ""
