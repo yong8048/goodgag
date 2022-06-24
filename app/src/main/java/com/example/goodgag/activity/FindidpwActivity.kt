@@ -53,8 +53,8 @@ class FindidpwActivity : AppCompatActivity(){
                 }
                 var userPhone = userData[SignUpActivity.SignUpInfo.PHONENUMBER.num].toString()
                 var userName = userData[SignUpActivity.SignUpInfo.NAME.num].toString()
-                var userEmail = userData[SignUpActivity.SignUpInfo.EMAIL.num].toString()
                 email.delete(0, 5)
+
                 if(userPhone.toString().equals(etFindIDPhone.text.toString()) && userName.toString().equals(etFindIDName.text.toString()))
                     Toast.makeText(this@FindidpwActivity, "아이디찾기 성공\n${email.insert(email.length -3, ".").toString()}", Toast.LENGTH_SHORT).show()
             }
@@ -75,11 +75,9 @@ class FindidpwActivity : AppCompatActivity(){
                 var data = snapshot.child("USERS/user_${email.toString()}")
                 for (_data in data.children) {
                     userData[index++] = _data.value.toString()
-                    Log.e("snap", _data.toString())
                 }
                 var userPhone = userData[SignUpActivity.SignUpInfo.PHONENUMBER.num].toString()
                 var userName = userData[SignUpActivity.SignUpInfo.NAME.num].toString()
-                var userEmail = userData[SignUpActivity.SignUpInfo.EMAIL.num].toString()
 
                 if (userPhone.toString().equals(etFindPWPhone.text.toString())
                     && userName.toString().equals(etFindPWName.text.toString())) {

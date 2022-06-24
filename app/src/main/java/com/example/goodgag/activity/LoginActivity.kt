@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.goodgag.R
+import com.example.goodgag.user.UserManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -53,18 +54,25 @@ class LoginActivity : AppCompatActivity() {
                 auth!!.signInWithEmailAndPassword(Email, password)
                     .addOnCompleteListener(this) {
                         if (it.isSuccessful) {
-                            ///////////////////////////////////////// Login 후에 tvUserInfo에 Nickname 표시를 위해 SettingsActivity로 intent를 보낸다.
-                            var email: StringBuilder = StringBuilder().append(etID.text.toString()).deleteCharAt(etID.text.toString().length - 4)
-                            database.child("USERS/user_$email").child(SignUpActivity.SignUpInfo.NICKNAME.toString()).get()
-                                .addOnSuccessListener {
-                                    val intent = Intent(this, SettingsActivity::class.java).apply {
-                                        putExtra(SignUpActivity.SignUpInfo.NICKNAME.toString(), it.value.toString())
+                            var email: StringBuilder = StringBuilder().append(etID.text.toString())
+                                .deleteCharAt(etID.text.toString().length - 4)
+                            val userData = Array<String>(5) { "" }
+                            database.addValueEventListener(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    val data = snapshot.child("USERS/user_$email")
+                                    var index: Int = 0
+                                    for (_data in data.children) {
+                                        userData[index++] = _data.value.toString()
                                     }
-                                    setResult(RESULT_OK, intent)
+                                    val userInfo = UserManager.getinstance(this@LoginActivity)
+                                    userInfo.registUser(userData[0], userData[1], userData[2], userData[3], userData[4])
+                                    Toast.makeText(this@LoginActivity, "Login success", Toast.LENGTH_SHORT).show()
                                     finish()
                                 }
-                            Toast.makeText(this, "Login success", Toast.LENGTH_SHORT).show()
-                        } else {
+                                override fun onCancelled(error: DatabaseError) { }
+                            })
+                        }
+                        else {
                             tvLoginError.visibility = View.VISIBLE
                             Toast.makeText(this, "Login fail", Toast.LENGTH_SHORT).show()
                         }

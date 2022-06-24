@@ -24,7 +24,6 @@ class SettingsActivity : AppCompatActivity() {
 
     var auth: FirebaseAuth? = null
 
-    private lateinit var ResLogin: ActivityResultLauncher<Intent>
     private lateinit var database: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,42 +33,9 @@ class SettingsActivity : AppCompatActivity() {
         database = Firebase.database.reference
         Initialize()
 
-        ResLogin = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == RESULT_OK) {
-                val nickname =
-                    it.data?.getStringExtra(SignUpActivity.SignUpInfo.NICKNAME.toString())!!
-                tvUserInfo.text = nickname.toString()
-                tvLogin.text = "로그아웃"
-
-                var _email: String = auth!!.currentUser?.email.toString()
-                var email: StringBuilder =
-                    StringBuilder().append(_email).deleteCharAt(_email.length - 4)
-
-                val userData = Array<String>(5){""}
-                var index: Int = 0
-                database.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val data = snapshot.child("USERS/user_$email")
-                        for (_data in data.children) {
-                            userData[index++] = _data.value.toString()
-                        }
-                        val userInfo = UserManager.getinstance(this@SettingsActivity)
-                        userInfo.registUser(userData[0],userData[1],userData[2],userData[3],userData[4])
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        Log.e("snap Error", "Error")
-                    }
-                })
-
-            }
-
-
-        }
         tvLogin.setOnClickListener {
             if (auth!!.currentUser == null) {
-                var intent = Intent(this, LoginActivity::class.java)
-                ResLogin.launch(intent)
+                startActivity(Intent(this, LoginActivity::class.java))
             } else {
                 auth!!.signOut()
                 Initialize()
