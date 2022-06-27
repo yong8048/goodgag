@@ -65,7 +65,13 @@ class LoginActivity : AppCompatActivity() {
                                         userData[index++] = _data.value.toString()
                                     }
                                     val userInfo = UserManager.getinstance(this@LoginActivity)
-                                    userInfo.registUser(userData[0], userData[1], userData[2], userData[3], userData[4])
+                                    userInfo.registUser(
+                                        userData[SignUpActivity.SignUpInfo.BIRTHDAY.num],
+                                        userData[SignUpActivity.SignUpInfo.EMAIL.num],
+                                        userData[SignUpActivity.SignUpInfo.NAME.num],
+                                        userData[SignUpActivity.SignUpInfo.NICKNAME.num],
+                                        userData[SignUpActivity.SignUpInfo.PHONENUMBER.num]
+                                    )
                                     Toast.makeText(this@LoginActivity, "Login success", Toast.LENGTH_SHORT).show()
                                     finish()
                                 }

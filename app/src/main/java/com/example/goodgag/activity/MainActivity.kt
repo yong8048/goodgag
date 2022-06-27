@@ -1,6 +1,7 @@
 package com.example.goodgag.activity
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,43 +11,52 @@ import android.view.ViewGroup
 import android.widget.ListAdapter
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
 import com.example.goodgag.user.UserManager
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 
 class MainActivity : AppCompatActivity() {
+
+    var postNum : Int = 1
+    var date : String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        LocalDate.now().toString()
+    } else {
+        throw Exception("SDK 버전이 낮습니다ㅋㅋ \n조선폰ㅋㅋ")
+    }
     var postList = arrayListOf<Post>(
-        Post("1", "이승용", "2022.123"),
-        Post("2", "오근혁", "2022./23"),
-        Post("3", "조명철", "2022.123"),
-        Post("4", "오근혁", "2022./23"),
-        Post("5", "조명철", "2022.123"),
-        Post("6", "오근혁", "2022./23"),
-        Post("7", "조명철", "2022.123"),
-        Post("8", "오근혁", "2022./23"),
-        Post("9", "조명철", "2022.123"),
-        Post("10", "조명철", "2022./23"),
-        Post("11", "조명철", "2022.123"),
-        Post("12", "조명철", "2022./23"),
-        Post("13", "이승용", "2022.123"),
-        Post("14", "이병욱", "2022./23"),
-        Post("15", "이승용", "2022.123"),
-//        Post("16", "이병욱", "2022./23"),
-//        Post("17", "이승용", "2022.123"),
-//        Post("18", "이병욱", "2022./23"),
-//        Post("19", "이승용", "2022.123"),
-//        Post("20", "이병욱", "2022./23"),
-//        Post("21", "이승용", "2022.123"),
-//        Post("22", "이병욱", "2022./23"),
-//        Post("1", "이승용", "2022.123"),
-//        Post("2", "오근혁", "2022./23"),
-//        Post("3", "조명철", "2022.123"),
+        Post(postNum++.toString(), "이승용", date),
+        Post(postNum++.toString(), "오근혁", date),
+        Post(postNum++.toString(), "조명철", date),
+        Post(postNum++.toString(), "오근혁", date),
+        Post(postNum++.toString(), "조명철", date),
+        Post(postNum++.toString(), "오근혁", date),
+        Post(postNum++.toString(), "조명철", date),
+        Post(postNum++.toString(), "오근혁", date),
+        Post(postNum++.toString(), "조명철", date),
+        Post(postNum++.toString(), "조명철", date),
+        Post(postNum++.toString(), "조명철", date),
+        Post(postNum++.toString(), "조명철", date),
+        Post(postNum++.toString(), "이승용", date),
+        Post(postNum++.toString(), "이병욱", date),
+        Post(postNum++.toString(), "이승용", date),
+        Post(postNum++.toString(), "이병욱", date),
+        Post(postNum++.toString(), "이승용", date),
+        Post(postNum++.toString(), "이병욱", date),
+        Post(postNum++.toString(), "이승용", date),
+        Post(postNum++.toString(), "이병욱", date),
+        Post(postNum++.toString(), "이승용", date),
+        Post(postNum++.toString(), "이병욱", date),
+        Post(postNum++.toString(), "이승용", date),
+        Post(postNum++.toString(), "오근혁", date),
+        Post(postNum++.toString(), "조명철", date),
 //        Post("4", "오근혁", "2022./23"),
 //        Post("5", "조명철", "2022.123"),
 //        Post("6", "오근혁", "2022./23"),
@@ -67,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 //        Post("21", "이승용", "2022.123"),
 //        Post("22", "이병욱", "2022./23")
     )
-    var b : Boolean = true
+    var listNumber : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,24 +92,28 @@ class MainActivity : AppCompatActivity() {
 
         btnListNext.setSingleLine()
         //////////////////////////////////////// 상단 새로고침
-        tv_Main.setOnClickListener { ClickRefresh(it) }
+        tv_Main.setOnClickListener { Click_Refresh(it) }
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
         //////////////////////////////////////// btnSettings 클릭
-        btnSettings.setOnClickListener { CLick_btnSettings(it) }
+        btnSettings.setOnClickListener { Click_btnSettings(it) }
 
         //////////////////////////////////////// btnShare 클릭
         btnShare.setOnClickListener { Click_btnShare(it)  }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
 
         btnBefore.setOnClickListener{
             //20220623 LBW SingleTone Test
-            Log.e("SEX","${UserManager.getinstance(this).Email}")
-            Log.e("SEX","${UserManager.getinstance(this).Name}")
-            Log.e("SEX","${UserManager.getinstance(this).Nickname}")
-            Log.e("SEX","${UserManager.getinstance(this).Phonenumber}")
-            Log.e("SEX","${UserManager.getinstance(this).Birthday}")
+            Log.e("SEX","${UserManager.getinstance(this).Email.toString()}")
+            Log.e("SEX","${UserManager.getinstance(this).Name.toString()}")
+            Log.e("SEX","${UserManager.getinstance(this).Nickname.toString()}")
+            Log.e("SEX","${UserManager.getinstance(this).Phonenumber.toString()}")
+            Log.e("SEX","${UserManager.getinstance(this).Birthday.toString()}")
+        }
+        btnListNext.setOnClickListener{
+            tvTest1.text = lv_main.adapter.getItemId(1).toString()
         }
     }
 
@@ -107,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
     }
-    private fun CLick_btnSettings(view: View){
+    private fun Click_btnSettings(view: View){
         var menuOption = PopupMenu(applicationContext, view)
         menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
         menuOption.show()
@@ -162,7 +176,7 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private fun ClickRefresh(view : View){
+    private fun Click_Refresh(view : View){
 
     }
 

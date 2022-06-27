@@ -58,7 +58,6 @@ class MyPageActivity : AppCompatActivity() {
             if(UserManager.getinstance(this).Phonenumber != etMypagePhone.text.toString()){
                 database.getReference("USERS/user_$email" + "/${SignUpActivity.SignUpInfo.PHONENUMBER.toString()}").setValue(etMypagePhone.text.toString())
             }
-            UserManager.getinstance(this).registUser(tostring(etMypageBirth),tostring(etMypageEmail),tostring(etMypageName),tostring(etMypageNickname),tostring(etMypagePhone))
             finish()
         }
     }

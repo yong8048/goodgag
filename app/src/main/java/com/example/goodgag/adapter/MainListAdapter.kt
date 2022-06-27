@@ -8,35 +8,27 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.goodgag.Post
 import com.example.goodgag.R
+import kotlinx.android.synthetic.main.main_lv_item.view.*
 
 class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : BaseAdapter() {
     override fun getCount(): Int {
         return 15
     }
 
-    override fun getItem(position: Int): Any {
+    override fun getItem(position: Int): Post {
         return postList[position]
     }
 
     override fun getItemId(position: Int): Long {
-        return 0
+        return position.toLong()
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-
         val view : View = LayoutInflater.from(context).inflate(R.layout.main_lv_item, null)
 
-        val postNumber = view.findViewById<TextView>(R.id.tv_number)
-        val postHeader = view.findViewById<TextView>(R.id.tv_header)
-        val postDate = view.findViewById<TextView>(R.id.tv_date)
-
-
-
-
-        val post = postList[position]
-        postNumber.text = post.number
-        postHeader.text = post.header
-        postDate.text = post.date
+        view.tv_number.text = postList[position].number
+        view.tv_header.text = postList[position].header
+        view.tv_date.text = postList[position].date
 
         return view
     }

@@ -27,8 +27,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         auth = Firebase.auth
         database = Firebase.database.reference
-        loadSplashScreen()
         Initialize()
+        loadSplashScreen()
     }
 
     private fun loadSplashScreen() {
@@ -39,22 +39,20 @@ class SplashActivity : AppCompatActivity() {
     }
     private fun Initialize(){
         if (auth!!.currentUser != null) {
-        var _email: String = auth!!.currentUser?.email.toString()
-        var email: StringBuilder = StringBuilder().append(_email).deleteCharAt(_email.length - 4)
-        val userData = Array<String>(5){""}
-        database.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val data = snapshot.child("USERS/user_${email.toString()}")
-                var index: Int = 0
-                for(_data in data.children){
-                    userData[index++] = _data.value.toString()
+            var _email: String = auth!!.currentUser?.email.toString()
+            var email: StringBuilder = StringBuilder().append(_email).deleteCharAt(_email.length - 4)
+            val userData = Array<String>(5){""}
+            database.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val data = snapshot.child("USERS/user_${email.toString()}")
+                    var index: Int = 0
+                    for(_data in data.children){
+                        userData[index++] = _data.value.toString()
+                    }
+                    UserManager.getinstance(this@SplashActivity).registUser(userData[0], userData[1], userData[2], userData[3], userData[4])
                 }
-                UserManager.getinstance(this@SplashActivity).registUser(userData[0],userData[1],userData[2],userData[3],userData[4])
-            }
-
-            override fun onCancelled(error: DatabaseError) { }
-        })
-    }
-
+                override fun onCancelled(error: DatabaseError) { }
+            })
+        }
     }
 }
