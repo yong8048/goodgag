@@ -8,14 +8,19 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
+import android.view.View
 import androidx.core.app.NotificationCompat
 import com.example.goodgag.activity.MainActivity
+import com.example.goodgag.activity.SettingsActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_settings.view.*
 
 class PushCloudMessaging : FirebaseMessagingService() {
 
     private val TAG = "FirebaseService"
+
 
     override fun onNewToken(token: String) {
         Log.d(TAG, "new Token: $token")
@@ -30,16 +35,20 @@ class PushCloudMessaging : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
+        if(View.inflate(this@PushCloudMessaging,R.layout.activity_settings, null).swPushSetting.isChecked){
+            if(message.data.isNotEmpty()){
+                Log.i("바디: ", message.data["body"].toString())
+                Log.i("타이틀: ", message.data["title"].toString())
+                SendNotification(message)
+            }
 
-        if(message.data.isNotEmpty()){
-            Log.i("바디: ", message.data["body"].toString())
-            Log.i("타이틀: ", message.data["title"].toString())
-            SendNotification(message)
+            else {
+                Log.i("수신에러: ", "data가 비어있습니다. 메시지를 수신하지 못했습니다.")
+                Log.i("data값: ", message.data.toString())
+            }
         }
-
-        else {
-            Log.i("수신에러: ", "data가 비어있습니다. 메시지를 수신하지 못했습니다.")
-            Log.i("data값: ", message.data.toString())
+        else{
+            Log.i("수신차단: ","Push 설정이 Off입니다.")
         }
     }
     private fun SendNotification(message : RemoteMessage){
