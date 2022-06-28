@@ -2,12 +2,15 @@ package com.example.goodgag.activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.goodgag.R
 import com.example.goodgag.user.UserManager
 import com.google.firebase.auth.FirebaseAuth
@@ -28,6 +31,9 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+
+
 
         auth = Firebase.auth
         database = Firebase.database.reference
@@ -51,10 +57,24 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         swPushSetting.setOnClickListener { }
+
+        swDarkMode.setOnCheckedChangeListener{ _, checked ->
+            if(checked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            else{
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        swDarkMode.isChecked = newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
 
     override fun onRestart() {
-        super.onRestart()
+         super.onRestart()
         Initialize()
     }
 
@@ -66,6 +86,9 @@ class SettingsActivity : AppCompatActivity() {
             tvUserInfo.text = UserManager.getinstance(this@SettingsActivity).Nickname
             tvLogin.text = "로그아웃"
         }
+
+        swDarkMode.isChecked = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+
         tvVersion.text = getVersion(this)
     }
 

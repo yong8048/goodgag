@@ -30,20 +30,58 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/llImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="@drawable/layout_edge_black">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="제목"
+                    android:paddingTop="3dp"
+                    android:paddingLeft="5dp"
+                    android:background="@drawable/textview_back_lightgray"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="작성자 | No.숫자 | 날짜"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:background="@drawable/textview_back_lightgray" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/imgPost"
+                    android:paddingVertical="10dp"
                     android:contentDescription="eocpasdasd" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="출처 또는 퍼온곳 : "
+                    android:textAlignment="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="3dp"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:text="댓글 펼치기"
+                    android:textColor="#D1D1D1"
+                    android:textAlignment="center"
+                    android:background="#151515"/>
+
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#5A5A5A"
+                android:background="@drawable/layout_edge_black"
                 android:orientation="horizontal">
 
                 <TextView

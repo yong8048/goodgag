@@ -1,17 +1,21 @@
 package com.example.goodgag.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.opengl.Visibility
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.View.*
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import android.widget.PopupMenu
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
@@ -19,6 +23,7 @@ import com.example.goodgag.user.UserManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_settings.*
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -79,9 +84,11 @@ class MainActivity : AppCompatActivity() {
     )
     var listNumber : Int = 0
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //토큰값 가져오기 -> 새기기 or 앱삭제 재설치 or 앱 데이터 소거시 토큰 초기화
         GetToken()
@@ -102,9 +109,7 @@ class MainActivity : AppCompatActivity() {
         //////////////////////////////////////// btnShare 클릭
         btnShare.setOnClickListener { Click_btnShare(it)  }
 
-        btnBack.setOnClickListener{
-            imgPost.setImageResource(0)
-        }
+        btnBack.setOnClickListener{ }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
 
@@ -117,18 +122,15 @@ class MainActivity : AppCompatActivity() {
             Log.e("SEX","${UserManager.getinstance(this).Birthday.toString()}")
         }
         btnListNext.setOnClickListener{
-            tvTest1.text = lv_main.adapter.getItem(1).toString()
-            imgPost.setImageResource(0)
+            var post : Post = lv_main.adapter.getItem(2) as Post
+            tvTest1.text = "넘버 : ${post.number}\n헤더 : ${post.header}\n날짜 : ${post.date}"
+            llImage.visibility = GONE
         }
-//        lv_main.setOnClickListener {
-//            imgPost.setImageResource(R.mipmap.image_splash_foreground)
-//        }
+
         lv_main.setOnItemClickListener { parent, view, position, id ->
-//            imgPost.setImageResource(R.mipmap.image_splash_foreground)
+            llImage.visibility = VISIBLE
             imgPost.setImageDrawable(getDrawable(R.drawable.ic_launcher_background))
-
         }
-
     }
 
     override fun onDestroy() {
@@ -186,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 val token : String = it.result
                 Log.d("FCM Log", "FCM 토큰: $token")
-                Toast.makeText(this@MainActivity, token, Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@MainActivity, token, Toast.LENGTH_SHORT).show()
             })
     }
 
