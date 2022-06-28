@@ -102,6 +102,10 @@ class MainActivity : AppCompatActivity() {
         //////////////////////////////////////// btnShare 클릭
         btnShare.setOnClickListener { Click_btnShare(it)  }
 
+        btnBack.setOnClickListener{
+            imgPost.setImageResource(0)
+        }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
 
         btnBefore.setOnClickListener{
@@ -113,8 +117,18 @@ class MainActivity : AppCompatActivity() {
             Log.e("SEX","${UserManager.getinstance(this).Birthday.toString()}")
         }
         btnListNext.setOnClickListener{
-            tvTest1.text = lv_main.adapter.getItemId(1).toString()
+            tvTest1.text = lv_main.adapter.getItem(1).toString()
+            imgPost.setImageResource(0)
         }
+//        lv_main.setOnClickListener {
+//            imgPost.setImageResource(R.mipmap.image_splash_foreground)
+//        }
+        lv_main.setOnItemClickListener { parent, view, position, id ->
+//            imgPost.setImageResource(R.mipmap.image_splash_foreground)
+            imgPost.setImageDrawable(getDrawable(R.drawable.ic_launcher_background))
+
+        }
+
     }
 
     override fun onDestroy() {
