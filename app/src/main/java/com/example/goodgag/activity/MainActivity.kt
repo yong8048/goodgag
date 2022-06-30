@@ -44,6 +44,7 @@ import java.time.LocalDateTime
 class MainActivity : AppCompatActivity() {
 
     var postNum : Int = 1
+    //시간 담아두는 방식 - 날짜 저장 / datetime은 시간까지
     var date : String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         LocalDate.now().toString()
     } else {
@@ -75,25 +76,6 @@ class MainActivity : AppCompatActivity() {
         Post(postNum++.toString(), "이승용", date),
         Post(postNum++.toString(), "오근혁", date),
         Post(postNum++.toString(), "조명철", date),
-//        Post("4", "오근혁", "2022./23"),
-//        Post("5", "조명철", "2022.123"),
-//        Post("6", "오근혁", "2022./23"),
-//        Post("7", "조명철", "2022.123"),
-//        Post("8", "오근혁", "2022./23"),
-//        Post("9", "조명철", "2022.123"),
-//        Post("10", "조명철", "2022./23"),
-//        Post("11", "조명철", "2022.123"),
-//        Post("12", "조명철", "2022./23"),
-//        Post("13", "이승용", "2022.123"),
-//        Post("14", "이병욱", "2022./23"),
-//        Post("15", "이승용", "2022.123"),
-//        Post("16", "이병욱", "2022./23"),
-//        Post("17", "이승용", "2022.123"),
-//        Post("18", "이병욱", "2022./23"),
-//        Post("19", "이승용", "2022.123"),
-//        Post("20", "이병욱", "2022./23"),
-//        Post("21", "이승용", "2022.123"),
-//        Post("22", "이병욱", "2022./23")
     )
     var listNumber : Int = 0
 
@@ -101,39 +83,38 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //토큰값 가져오기 -> 새기기 or 앱삭제 재설치 or 앱 데이터 소거시 토큰 초기화
         GetToken()
 
         lv_main.adapter = MainListAdapter(this, postList)
-        //f
+
         ListViewHeightSize()
 
-        btnListNext.setSingleLine()
         //////////////////////////////////////// 상단 새로고침
         tv_Main.setOnClickListener { Click_Refresh(it) }
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
-        //////////////////////////////////////// btnSettings 클릭
+        //////////////////////////////////////// 버튼 클릭 뒤로가기
+        btnBack.setOnClickListener{ Click_btnBack(it)  }
+        //////////////////////////////////////// 버튼 클릭이전 게시물로 이동
+        btnBefore.setOnClickListener { Click_btnBefore(it)  }
+        //////////////////////////////////////// 버튼 클릭 다음 게시물로 이동
+        btnNext.setOnClickListener { Click_btnNext(it)  }
+        //////////////////////////////////////// 버튼 클릭 작성한 댓글 보여줌
+        btnComment.setOnClickListener { Click_btnComment(it)  }
+        //////////////////////////////////////// 버튼 클릭 다음 게시물로 이동
+        btnRefresh.setOnClickListener { Click_btnRefresh(it)  }
+        //////////////////////////////////////// 버튼 클릭 공유
+        btnShare.setOnClickListener { Click_btnShare(it)    }
+        //////////////////////////////////////// 버튼 클릭 랜덤 게시물
+        btnRandom.setOnClickListener { Click_btnRandom(it)  }
+        //////////////////////////////////////// 버튼 클릭 설정
         btnSettings.setOnClickListener { Click_btnSettings(it) }
-
-        //////////////////////////////////////// btnShare 클릭
-        btnShare.setOnClickListener { Click_btnShare(it)  }
-
-        btnBack.setOnClickListener{ }
-
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
 
-        btnBefore.setOnClickListener{
-            //20220623 LBW SingleTone Test
-            Log.e("SEX","${UserManager.getinstance(this).Email.toString()}")
-            Log.e("SEX","${UserManager.getinstance(this).Name.toString()}")
-            Log.e("SEX","${UserManager.getinstance(this).Nickname.toString()}")
-            Log.e("SEX","${UserManager.getinstance(this).Phonenumber.toString()}")
-            Log.e("SEX","${UserManager.getinstance(this).Birthday.toString()}")
-        }
+
         btnListNext.setOnClickListener{
             var post : Post = lv_main.adapter.getItem(2) as Post
             tvTest1.text = "넘버 : ${post.number}\n헤더 : ${post.header}\n날짜 : ${post.date}"
@@ -151,6 +132,45 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    private fun Click_btnBack(view : View){
+        if(imgPost != null){
+
+        }
+        else{
+
+        }
+    }
+
+    private fun Click_btnBefore(view: View){
+        if(llImage.visibility != GONE){
+            Toast.makeText(this@MainActivity,"게시물 있음", Toast.LENGTH_SHORT).show()
+        }
+        else{
+
+        }
+    }
+
+    private fun Click_btnNext(view: View){
+
+    }
+
+    private fun Click_btnComment(view: View){
+
+    }
+
+    private fun Click_btnRefresh(view: View){
+
+    }
+
+    private fun Click_btnShare(view: View){
+        var menuShare = PopupMenu(applicationContext, view)
+        menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
+        menuShare.show()
+    }
+
+    private fun Click_btnRandom(view: View){
 
     }
 
@@ -190,11 +210,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun Click_btnShare(view: View){
-        var menuShare = PopupMenu(applicationContext, view)
-        menuInflater?.inflate(R.menu.menu_share, menuShare.menu)
-        menuShare.show()
-    }
+
 
     private fun GetToken(){
         FirebaseMessaging.getInstance().token
@@ -211,6 +227,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun Click_Refresh(view : View){
         imgPost.setImageResource(0)
+        llImage.visibility = GONE
     }
 
     private fun ListViewHeightSize(){
@@ -240,24 +257,10 @@ class MainActivity : AppCompatActivity() {
                 if(it.isSuccessful) {
                     Log.i("downLoad", "${it.result}")
                     Glide.with(this).load(it.result).into(imgPost)
-//                    val image : Task<Uri> = it
-//                    imgPost.setImageURI(it.result)
                 }
                 val httpsReference = storage.getReferenceFromUrl(storagePath.toString())
             })
-
-
-//                OnSuccessListener<Uri> {
-//
-//            })
-//                if(it.isSuccessful) {
-//                    Glide.with(this).load(it.).into(imgPost)
-//                }
-//                else
-//                    Toast.makeText(this, "이미지로드 실패 병신년", Toast.LENGTH_SHORT).show()
-//            }
-
         }
-
     }
+
 }
