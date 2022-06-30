@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.opengl.Visibility
@@ -26,6 +25,7 @@ import com.example.goodgag.R
 import com.example.goodgag.user.UserManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
@@ -142,6 +142,7 @@ class MainActivity : AppCompatActivity() {
 
 
         lv_main.setOnItemClickListener { parent, view, position, id ->
+            llImage.visibility = VISIBLE
             val clickedListNum : Int = postList[position].getNumber().toInt()
             GetImagePost(clickedListNum)
 
@@ -152,22 +153,6 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private fun Click_btnSettings(view: View){
         var menuOption = PopupMenu(applicationContext, view)
@@ -247,15 +232,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun GetImagePost(num : Int) {
         val storage: FirebaseStorage = FirebaseStorage.getInstance()
-        val storageRef: StorageReference = storage.getReference()
-        val storagePath: StorageReference = storageRef.child("$num.jpg")
+        val storagePath: StorageReference = storage.reference.child("$num.jpg")
         if (storagePath == null)
             Toast.makeText(this, "데이터 없음", Toast.LENGTH_SHORT).show()
         else {
             storagePath.downloadUrl.addOnCompleteListener(OnCompleteListener {
-                if(it.isSuccessful)
-                    Glide.with(this).load(it).into(imgPost)
-
+                if(it.isSuccessful) {
+                    Log.i("downLoad", "${it.result}")
+                    Glide.with(this).load(it.result).into(imgPost)
+//                    val image : Task<Uri> = it
+//                    imgPost.setImageURI(it.result)
+                }
                 val httpsReference = storage.getReferenceFromUrl(storagePath.toString())
             })
 
