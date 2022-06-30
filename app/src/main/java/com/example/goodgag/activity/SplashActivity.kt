@@ -42,7 +42,7 @@ class SplashActivity : AppCompatActivity() {
         if (auth!!.currentUser != null) {
             var _email: String = auth!!.currentUser?.email.toString()
             var email: StringBuilder = StringBuilder().append(_email).deleteCharAt(_email.length - 4)
-            val userData = Array<String>(5){""}
+            val userData = Array<String>(6){""}
             database.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val data = snapshot.child("USERS/user_${email.toString()}")
@@ -50,7 +50,13 @@ class SplashActivity : AppCompatActivity() {
                     for(_data in data.children){
                         userData[index++] = _data.value.toString()
                     }
-                    UserManager.getinstance(this@SplashActivity).registUser(userData[0], userData[1], userData[2], userData[3], userData[4])
+                    UserManager.getinstance(this@SplashActivity).registUser(
+                        userData[SignUpActivity.SignUpInfo.BIRTHDAY.num],
+                        userData[SignUpActivity.SignUpInfo.EMAIL.num],
+                        userData[SignUpActivity.SignUpInfo.NAME.num],
+                        userData[SignUpActivity.SignUpInfo.NICKNAME.num],
+                        userData[SignUpActivity.SignUpInfo.PHONENUMBER.num],
+                        userData[SignUpActivity.SignUpInfo.PERMISSION.num].toBoolean())
                 }
                 override fun onCancelled(error: DatabaseError) { }
             })

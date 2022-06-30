@@ -268,6 +268,17 @@
             android:text="문의하기"
             android:textColor="@color/black" />
 
+        <TextView
+            android:id="@+id/tvUploadPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/textview_edge_lightgray"
+            android:padding="10dp"
+            android:text="게시물 업로드"
+            android:textColor="@color/black" />
+
     </LinearLayout>
 
 </LinearLayout>

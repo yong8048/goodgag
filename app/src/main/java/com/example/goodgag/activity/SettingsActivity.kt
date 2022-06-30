@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.service.voice.VoiceInteractionSession
 import android.util.Log
+import android.view.View.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -44,8 +46,8 @@ class SettingsActivity : AppCompatActivity() {
                 startActivity(Intent(this, LoginActivity::class.java))
             } else {
                 auth!!.signOut()
-                Initialize()
                 UserManager.getinstance(this).clearUser()
+                Initialize()
             }
         }
         
@@ -90,6 +92,14 @@ class SettingsActivity : AppCompatActivity() {
         swDarkMode.isChecked = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
         tvVersion.text = getVersion(this)
+
+        var permission : Boolean? = UserManager.getinstance(this@SettingsActivity).Permission
+        if(permission == true){
+            tvUploadPost.visibility = VISIBLE
+        }
+        else{
+            tvUploadPost.visibility = INVISIBLE
+        }
     }
 
     private fun getVersion(context: Context): String {

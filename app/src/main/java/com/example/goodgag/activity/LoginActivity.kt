@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
                         if (it.isSuccessful) {
                             var email: StringBuilder = StringBuilder().append(etID.text.toString())
                                 .deleteCharAt(etID.text.toString().length - 4)
-                            val userData = Array<String>(5) { "" }
+                            val userData = Array<String>(6) { "" }
                             database.addValueEventListener(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
                                     val data = snapshot.child("USERS/user_$email")
@@ -70,7 +70,8 @@ class LoginActivity : AppCompatActivity() {
                                         userData[SignUpActivity.SignUpInfo.EMAIL.num],
                                         userData[SignUpActivity.SignUpInfo.NAME.num],
                                         userData[SignUpActivity.SignUpInfo.NICKNAME.num],
-                                        userData[SignUpActivity.SignUpInfo.PHONENUMBER.num]
+                                        userData[SignUpActivity.SignUpInfo.PHONENUMBER.num],
+                                        userData[SignUpActivity.SignUpInfo.PERMISSION.num].toBoolean()
                                     )
                                     Toast.makeText(this@LoginActivity, "Login success", Toast.LENGTH_SHORT).show()
                                     finish()

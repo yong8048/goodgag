@@ -23,7 +23,8 @@ class SignUpActivity : AppCompatActivity() {
         EMAIL(1),
         NAME(2),
         NICKNAME(3),
-        PHONENUMBER(4),
+        PERMISSION(4),
+        PHONENUMBER(5),
     }
     var firebasepath : FirebaseAuth? = null
     val database : FirebaseDatabase = FirebaseDatabase.getInstance()
@@ -132,6 +133,7 @@ class SignUpActivity : AppCompatActivity() {
         database.getReference("USERS/user_$useremail" + "/${SignUpInfo.EMAIL}").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
         database.getReference("USERS/user_$useremail" + "/${SignUpInfo.PHONENUMBER}").setValue(phNumber.toString())
         database.getReference("USERS/user_$useremail" + "/${SignUpInfo.BIRTHDAY}").setValue(tvBirth.text.toString())
+        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.PERMISSION}").setValue(false)
     }
 
     private fun Short_Toast(message : String){
