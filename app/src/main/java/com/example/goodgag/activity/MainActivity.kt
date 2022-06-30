@@ -1,5 +1,9 @@
 package com.example.goodgag.activity
 
+import android.app.PendingIntent.getActivity
+import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
@@ -15,15 +19,24 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatDelegate
+import com.bumptech.glide.Glide
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
 import com.example.goodgag.user.UserManager
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.main_lv_item.*
+import java.io.ByteArrayInputStream
+import java.io.File
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -127,9 +140,11 @@ class MainActivity : AppCompatActivity() {
             llImage.visibility = GONE
         }
 
+
         lv_main.setOnItemClickListener { parent, view, position, id ->
-            llImage.visibility = VISIBLE
-            imgPost.setImageDrawable(getDrawable(R.drawable.ic_launcher_background))
+            val clickedListNum : Int = postList[position].getNumber().toInt()
+            GetImagePost(clickedListNum)
+
         }
     }
 
@@ -137,6 +152,23 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private fun Click_btnSettings(view: View){
         var menuOption = PopupMenu(applicationContext, view)
         menuInflater?.inflate(R.menu.menu_option, menuOption.menu)
@@ -193,7 +225,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Click_Refresh(view : View){
-
+        imgPost.setImageResource(0)
     }
 
     private fun ListViewHeightSize(){
@@ -211,5 +243,34 @@ class MainActivity : AppCompatActivity() {
         lv_main.layoutParams = params
 
         lv_main.requestLayout()
+    }
+
+    private fun GetImagePost(num : Int) {
+        val storage: FirebaseStorage = FirebaseStorage.getInstance()
+        val storageRef: StorageReference = storage.getReference()
+        val storagePath: StorageReference = storageRef.child("$num.jpg")
+        if (storagePath == null)
+            Toast.makeText(this, "데이터 없음", Toast.LENGTH_SHORT).show()
+        else {
+            storagePath.downloadUrl.addOnCompleteListener(OnCompleteListener {
+                if(it.isSuccessful)
+                    Glide.with(this).load(it).into(imgPost)
+
+                val httpsReference = storage.getReferenceFromUrl(storagePath.toString())
+            })
+
+
+//                OnSuccessListener<Uri> {
+//
+//            })
+//                if(it.isSuccessful) {
+//                    Glide.with(this).load(it.).into(imgPost)
+//                }
+//                else
+//                    Toast.makeText(this, "이미지로드 실패 병신년", Toast.LENGTH_SHORT).show()
+//            }
+
+        }
+
     }
 }
