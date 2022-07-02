@@ -52,6 +52,10 @@
                     android:paddingLeft="5dp"
                     android:background="@drawable/textview_back_lightgray" />
 
+                <LinearLayout
+                    android:id="@+id/llImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,6 +63,7 @@
                     android:paddingVertical="10dp"
                     android:scaleType="center"
                     android:contentDescription="eocpasdasd" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
