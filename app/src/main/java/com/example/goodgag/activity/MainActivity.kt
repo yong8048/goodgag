@@ -51,31 +51,24 @@ class MainActivity : AppCompatActivity() {
         throw Exception("SDK 버전이 낮습니다ㅋㅋ \n조선폰ㅋㅋ")
     }
     var postList = arrayListOf<Post>(
-        Post(postNum++.toString(), "이승용", date),
-        Post(postNum++.toString(), "오근혁", date),
-        Post(postNum++.toString(), "조명철", date),
-        Post(postNum++.toString(), "오근혁", date),
-        Post(postNum++.toString(), "조명철", date),
-        Post(postNum++.toString(), "오근혁", date),
-        Post(postNum++.toString(), "조명철", date),
-        Post(postNum++.toString(), "오근혁", date),
-        Post(postNum++.toString(), "조명철", date),
-        Post(postNum++.toString(), "조명철", date),
-        Post(postNum++.toString(), "조명철", date),
-        Post(postNum++.toString(), "조명철", date),
-        Post(postNum++.toString(), "이승용", date),
-        Post(postNum++.toString(), "이병욱", date),
-        Post(postNum++.toString(), "이승용", date),
-        Post(postNum++.toString(), "이병욱", date),
-        Post(postNum++.toString(), "이승용", date),
-        Post(postNum++.toString(), "이병욱", date),
-        Post(postNum++.toString(), "이승용", date),
-        Post(postNum++.toString(), "이병욱", date),
-        Post(postNum++.toString(), "이승용", date),
-        Post(postNum++.toString(), "이병욱", date),
-        Post(postNum++.toString(), "이승용", date),
-        Post(postNum++.toString(), "오근혁", date),
-        Post(postNum++.toString(), "조명철", date),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
+        Post(date, "이승용", postNum++.toString(), "z","z"),
     )
     var listNumber : Int = 0
 
@@ -83,6 +76,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         //토큰값 가져오기 -> 새기기 or 앱삭제 재설치 or 앱 데이터 소거시 토큰 초기화
         GetToken()
@@ -262,5 +256,21 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
+
+
+//    private  fun GetPostInfo(){
+//        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
+//        val myRef : DatabaseReference = database.getReference("POST")
+//        myRef.addValueEventListener(object : ValueEventListener{
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//
+//            }
+//        })
+//
+//    }
 
 }
