@@ -129,12 +129,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Click_btnBack(view : View){
-        if(imgPost != null){
-
-        }
-        else{
-
-        }
+//        if(imgPost != null){
+//
+//        }
+//        else{
+//
+//        }
     }
 
     private fun Click_btnBefore(view: View){
@@ -165,7 +165,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Click_btnRandom(view: View){
+        val storage: FirebaseStorage = FirebaseStorage.getInstance()
+        val storagePath: StorageReference = storage.reference.child("1")
 
+        if (storagePath == null)
+            Toast.makeText(this, "데이터 없음", Toast.LENGTH_SHORT).show()
+        else {
+            storagePath.downloadUrl.addOnCompleteListener(OnCompleteListener {
+                if(it.isSuccessful) {
+                    Log.i("downLoad", "${it.result}")
+                    Glide.with(this).load(it.result).into(imgPost)
+                }
+                val httpsReference = storage.getReferenceFromUrl(storagePath.toString())
+            })
+        }
     }
 
     private fun Click_btnSettings(view: View){
@@ -220,7 +233,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Click_Refresh(view : View){
-        imgPost.setImageResource(0)
+//        imgPost.setImageResource(0)
         llImage.visibility = GONE
     }
 
@@ -242,18 +255,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun GetImagePost(num : Int) {
+        llImageView.removeAllViews()
         val storage: FirebaseStorage = FirebaseStorage.getInstance()
-        val storagePath: StorageReference = storage.reference.child("$num.jpg")
+        val storagePath: StorageReference = storage.reference.child("1")
+
         if (storagePath == null)
             Toast.makeText(this, "데이터 없음", Toast.LENGTH_SHORT).show()
         else {
-            storagePath.downloadUrl.addOnCompleteListener(OnCompleteListener {
-                if(it.isSuccessful) {
-                    Log.i("downLoad", "${it.result}")
-                    Glide.with(this).load(it.result).into(imgPost)
+            storagePath.listAll().addOnSuccessListener {
+                for(data in it.items){
+                    val imageview = ImageView(this)
+                    imageview.scaleType = ImageView.ScaleType.CENTER
+                    llImageView.addView(imageview)
+                    data.downloadUrl.addOnCompleteListener(OnCompleteListener {
+                        if(it.isSuccessful) {
+                            Log.i("downLoad", "${it.result}")
+                            Glide.with(this).load(it.result).into(imageview)
+                        }
+                    })
                 }
-                val httpsReference = storage.getReferenceFromUrl(storagePath.toString())
-            })
+
+            }
+
         }
     }
 
