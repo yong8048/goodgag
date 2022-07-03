@@ -1,7 +1,9 @@
 package com.example.goodgag.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -13,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
 import com.example.goodgag.R
 import com.example.goodgag.user.UserManager
 import com.google.firebase.auth.FirebaseAuth
@@ -66,6 +69,14 @@ class SettingsActivity : AppCompatActivity() {
             }
             else{
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
+        tvUploadPost.setOnClickListener{
+            // 저장소 권한
+            ActivityCompat.requestPermissions(this,arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+            if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                startActivity(Intent(this,UploadPostActivity::class.java))
             }
         }
     }

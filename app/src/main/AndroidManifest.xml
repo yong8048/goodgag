@@ -4,6 +4,7 @@
     package="com.example.goodgag">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -37,6 +38,7 @@
         <activity android:name=".activity.SignUpActivity"></activity>
         <activity android:name=".activity.MyPageActivity"></activity>
         <activity android:name=".activity.DatePickerActivity"></activity>
+        <activity android:name=".activity.UploadPostActivity"></activity>
         <service
             android:name=".PushCloudMessaging"
             android:exported="false"

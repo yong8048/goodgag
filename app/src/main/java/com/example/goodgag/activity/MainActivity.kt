@@ -7,6 +7,7 @@ import android.net.Uri
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.opengl.Visibility
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
@@ -39,6 +41,7 @@ import java.io.ByteArrayInputStream
 import java.io.File
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.jar.Manifest
 
 
 class MainActivity : AppCompatActivity() {
@@ -76,7 +79,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         //토큰값 가져오기 -> 새기기 or 앱삭제 재설치 or 앱 데이터 소거시 토큰 초기화
         GetToken()
@@ -265,12 +267,13 @@ class MainActivity : AppCompatActivity() {
             storagePath.listAll().addOnSuccessListener {
                 for(data in it.items){
                     val imageview = ImageView(this)
-                    imageview.scaleType = ImageView.ScaleType.CENTER
+                    imageview.scaleType = ImageView.ScaleType.FIT_CENTER
                     llImageView.addView(imageview)
                     data.downloadUrl.addOnCompleteListener(OnCompleteListener {
                         if(it.isSuccessful) {
                             Log.i("downLoad", "${it.result}")
                             Glide.with(this).load(it.result).into(imageview)
+                            Log.i("downLoad", "Height : ${it.result}   Width ${imageview.width}")
                         }
                     })
                 }
