@@ -70,19 +70,19 @@ class SignUpActivity : AppCompatActivity() {
         else if(!isFormatPattern(etName.text.toString(), namePattern)){
             Short_Toast("Name is not allow")
         }
-        else if(etNickname.text.toString() == ""){
+        else if(etNickname.text.isEmpty()){
             Short_Toast("Nickname is empty")
         }
         else if(!isFormatPattern(etNickname.text.toString(), nicknamePattern)){
             Short_Toast("Nickname is not allow")
         }
-        else if (etEmail.text.toString() == "") {
+        else if (etEmail.text.isEmpty()) {
             Short_Toast("Email is empty")
         }
         else if(!isFormatPattern(etEmail.text.toString(),idPattern)){
             Short_Toast("Email is not allow")
         }
-        else if(etPW.text.toString() == "" || etPWcheck.text.toString() == ""){
+        else if(etPW.text.isEmpty() || etPWcheck.text.isEmpty()){
             Short_Toast("PassWord is empty")
         }
         else if(!isFormatPattern(etPW.text.toString(),pwPattern) || etPW.text.length < 6){
@@ -91,13 +91,13 @@ class SignUpActivity : AppCompatActivity() {
         else if(etPW.text.toString() != etPWcheck.text.toString()){
             Short_Toast("PassWord Mismatch")
         }
-        else if(etPhone1.text.toString() == "" || etPhone2.text.toString() == "" || etPhone3.text.toString() == ""){
+        else if(etPhone1.text.isEmpty() || etPhone2.text.isEmpty() || etPhone3.text.isEmpty()){
             Short_Toast("Phone Number is empty")
         }
         else if(etPhone1.text.toString().length != 3 || etPhone2.text.toString().toInt() < 100 || etPhone3.text.toString().toInt() < 1000){
             Short_Toast("Phone Number is not allow")
         }
-        else if(tvBirth.text.toString() == ""){
+        else if(tvBirth.text.isEmpty()){
             Short_Toast("BirthDay is empty")
         }
         else{
@@ -128,12 +128,13 @@ class SignUpActivity : AppCompatActivity() {
         useremail.deleteCharAt(useremail.toString().length - 4)
 
         var phNumber = etPhone1.text.toString().plus(etPhone2.text.toString()).plus(etPhone3.text.toString())
-        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.NAME}").setValue(etName.text.toString())
-        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.NICKNAME}").setValue(etNickname.text.toString())
-        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.EMAIL}").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
-        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.PHONENUMBER}").setValue(phNumber.toString())
-        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.BIRTHDAY}").setValue(tvBirth.text.toString())
-        database.getReference("USERS/user_$useremail" + "/${SignUpInfo.PERMISSION}").setValue(false)
+        val databasepath = "USERS_user$useremail"
+        database.getReference("$databasepath/${SignUpInfo.NAME}").setValue(etName.text.toString())
+        database.getReference("$databasepath/${SignUpInfo.NICKNAME}").setValue(etNickname.text.toString())
+        database.getReference("$databasepath/${SignUpInfo.EMAIL}").setValue(etEmail.text.toString() + spMailList.selectedItem.toString())
+        database.getReference("$databasepath/${SignUpInfo.PHONENUMBER}").setValue(phNumber.toString())
+        database.getReference("$databasepath/${SignUpInfo.BIRTHDAY}").setValue(tvBirth.text.toString())
+        database.getReference("$databasepath/${SignUpInfo.PERMISSION}").setValue(false)
     }
 
     private fun Short_Toast(message : String){

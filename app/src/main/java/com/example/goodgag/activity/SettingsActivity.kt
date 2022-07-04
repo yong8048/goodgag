@@ -74,9 +74,11 @@ class SettingsActivity : AppCompatActivity() {
 
         tvUploadPost.setOnClickListener{
             // 저장소 권한
-            ActivityCompat.requestPermissions(this,arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
             if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                 startActivity(Intent(this,UploadPostActivity::class.java))
+            }
+            else{
+                ActivityCompat.requestPermissions(this,arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
             }
         }
     }
