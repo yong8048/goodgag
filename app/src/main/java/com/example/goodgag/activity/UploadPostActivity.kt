@@ -81,14 +81,14 @@ class UploadPostActivity : AppCompatActivity(){
 
         btnOpenGallery.setOnClickListener{
             val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.setType("image/*")
+            intent.setType("*/*")
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             getImageResult.launch(intent)
         }
 
         btnUploadPost.setOnClickListener{
             if(Imagelist.isEmpty()){
-                Short_Toast("이미지가 없습니다")
+                Short_Toast("파일이 없습니다")
             }
             else if(etUploadHeader.text.isEmpty()){
                 Short_Toast("제목을 입력하세요")
