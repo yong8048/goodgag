@@ -1,6 +1,7 @@
 package com.example.goodgag.activity
 
 import android.app.ActionBar
+import android.app.AlertDialog
 import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
@@ -14,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.Image
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.example.goodgag.R
@@ -33,6 +35,7 @@ class UploadPostActivity : AppCompatActivity(){
         NUMBER(2),
         SOURCE(3),
         UPLOADER(4),
+        ISPHOTO(5)
     }
 
     private lateinit var getImageResult : ActivityResultLauncher<Intent>
@@ -79,12 +82,20 @@ class UploadPostActivity : AppCompatActivity(){
             }
         }
 
-        btnOpenGallery.setOnClickListener{
+        btnGetImage.setOnClickListener{
             val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.setType("*/*")
+            intent.setType("image/*")
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             getImageResult.launch(intent)
         }
+
+        btnGetVideo.setOnClickListener{
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.setType("video/*")
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            getImageResult.launch(intent)
+        }
+
 
         btnUploadPost.setOnClickListener{
             if(Imagelist.isEmpty()){
@@ -120,8 +131,11 @@ class UploadPostActivity : AppCompatActivity(){
         }
 
         btnUploadListClear.setOnClickListener{
-            Imagelist.clear()
-            llUploadPost.removeAllViews()
+//            Imagelist.clear()
+//            llUploadPost.removeAllViews()
+            for(data in Imagelist){
+                Log.i("DataType","${data.toString()}")
+            }
         }
 
     }

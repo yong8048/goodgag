@@ -65,6 +65,11 @@
                         android:contentDescription="eocpasdasd"
                         android:paddingVertical="10dp"
                         android:scaleType="center" />
+                    <VideoView
+                        android:id="@+id/vdpost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="10dp"/>
                 </LinearLayout>
 
                 <TextView
@@ -233,6 +238,11 @@
                     android:padding="25dp"
 
                     android:text="이병욱 볍신ㅋㅋ" />
+
+                <VideoView
+                    android:id="@+id/videoview"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
                 <TextView
                 android:id="@+id/tvTest2"
                 android:layout_width="match_parent"

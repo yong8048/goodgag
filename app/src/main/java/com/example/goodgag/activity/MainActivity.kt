@@ -32,6 +32,7 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,6 +40,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.main_lv_item.*
 import java.io.ByteArrayInputStream
 import java.io.File
+import java.net.URI
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.jar.Manifest
@@ -167,19 +169,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Click_btnRandom(view: View){
-        val storage: FirebaseStorage = FirebaseStorage.getInstance()
-        val storagePath: StorageReference = storage.reference.child("1")
-
-        if (storagePath == null)
-            Toast.makeText(this, "데이터 없음", Toast.LENGTH_SHORT).show()
-        else {
-            storagePath.downloadUrl.addOnCompleteListener(OnCompleteListener {
-                if(it.isSuccessful) {
-                    Log.i("downLoad", "${it.result}")
-                    Glide.with(this).load(it.result).into(imgPost)
-                }
-                val httpsReference = storage.getReferenceFromUrl(storagePath.toString())
-            })
+        val path : String = "https://firebasestorage.googleapis.com/v0/b/goodgag-2005b.appspot.com/o/8%2F2022-07-05T21%3A38%3A27.032?alt=media&token=f8e82401-c35f-4415-aeab-7e2edb67f6bd"
+        var uri : Uri = Uri.parse(path)
+        videoview.setVideoURI(uri)
+        videoview.setMediaController(MediaController(this))
+        videoview.requestFocus()
+        videoview.setOnPreparedListener{
+            Toast.makeText(applicationContext,"영상 준비 완료",Toast.LENGTH_SHORT).show()
+            videoview.start()
         }
     }
 
@@ -259,23 +256,44 @@ class MainActivity : AppCompatActivity() {
     private fun GetImagePost(num : Int) {
         llImageView.removeAllViews()
         val storage: FirebaseStorage = FirebaseStorage.getInstance()
-        val storagePath: StorageReference = storage.reference.child("1")
+        val storagePath: StorageReference = storage.reference.child("$num")
 
         if (storagePath == null)
             Toast.makeText(this, "데이터 없음", Toast.LENGTH_SHORT).show()
         else {
             storagePath.listAll().addOnSuccessListener {
                 for(data in it.items){
-                    val imageview = ImageView(this)
-                    imageview.scaleType = ImageView.ScaleType.FIT_CENTER
-                    llImageView.addView(imageview)
-                    data.downloadUrl.addOnCompleteListener(OnCompleteListener {
-                        if(it.isSuccessful) {
-                            Log.i("downLoad", "${it.result}")
-                            Glide.with(this).load(it.result).into(imageview)
-                            Log.i("downLoad", "Height : ${it.result}   Width ${imageview.width}")
+                    // Video인지 Image 인지 메타데이터 가져오기
+                    data.metadata.addOnSuccessListener { metadata ->
+                        Log.i("DownLoad","${metadata.contentType}")
+                        if(metadata.contentType!!.contains("image")){
+                            val imageview = ImageView(this)
+                            imageview.scaleType = ImageView.ScaleType.FIT_CENTER
+                            llImageView.addView(imageview)
+                            data.downloadUrl.addOnCompleteListener(OnCompleteListener {
+                                if(it.isSuccessful) {
+                                    Glide.with(this).load(it.result).into(imageview)
+                                    Log.i("downLoad", "Height : ${it.result}   Width ${imageview.width}")
+                                }
+                            })
                         }
-                    })
+                        else{
+//                            TODO("씨이발 동영상은 어케넣어? VideoView는 Glide에 안넣어져")
+//                            val imageview = ImageView(this)
+//                            imageview.scaleType = ImageView.ScaleType.FIT_CENTER
+//                            llImageView.addView(imageview)
+                            data.downloadUrl.addOnCompleteListener(OnCompleteListener {
+                                if(it.isSuccessful) {
+//                                    val VideoView = VideoView(this)
+//                                    llImageView.addView(VideoView)
+                                    videoview?.setVideoURI(it.result)
+                                    videoview.start()
+//                                    Glide.with(this).load(it.result).into(imageview)
+                                    Log.i("downLoad", " ---------------------------- ${it.result.toString()}   ")
+                                }
+                            })
+                        }
+                    }
                 }
 
             }
