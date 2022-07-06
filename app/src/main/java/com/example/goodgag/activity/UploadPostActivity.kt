@@ -35,7 +35,6 @@ class UploadPostActivity : AppCompatActivity(){
         NUMBER(2),
         SOURCE(3),
         UPLOADER(4),
-        ISPHOTO(5)
     }
 
     private lateinit var getImageResult : ActivityResultLauncher<Intent>

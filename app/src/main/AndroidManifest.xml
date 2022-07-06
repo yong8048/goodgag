@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/image_splash_foreground"
         android:supportsRtl="true"
         android:theme="@style/Theme.Goodgag"
+        android:hardwareAccelerated="false"
         tools:targetApi="31">
         <activity
             android:name=".activity.SplashActivity"

@@ -1,49 +1,29 @@
 package com.example.goodgag.activity
 
-import android.app.PendingIntent.getActivity
 import android.content.Intent
-import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.annotation.SuppressLint
-import android.content.res.Configuration
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.opengl.Visibility
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
+import androidx.compose.animation.core.snap
 import com.bumptech.glide.Glide
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
 import com.example.goodgag.R
-import com.example.goodgag.user.UserManager
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
-import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.main_lv_item.*
-import java.io.ByteArrayInputStream
-import java.io.File
-import java.net.URI
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.jar.Manifest
 
 
 class MainActivity : AppCompatActivity() {
@@ -76,6 +56,9 @@ class MainActivity : AppCompatActivity() {
         Post(date, "이승용", postNum++.toString(), "z","z"),
     )
     var listNumber : Int = 0
+
+    var storage : FirebaseStorage = FirebaseStorage.getInstance()
+    var database : FirebaseDatabase = FirebaseDatabase.getInstance()
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -121,7 +104,6 @@ class MainActivity : AppCompatActivity() {
 
 
         lv_main.setOnItemClickListener { parent, view, position, id ->
-            llImage.visibility = VISIBLE
             val clickedListNum : Int = postList[position].getNumber().toInt()
             GetImagePost(clickedListNum)
 
@@ -170,14 +152,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun Click_btnRandom(view: View){
         val path : String = "https://firebasestorage.googleapis.com/v0/b/goodgag-2005b.appspot.com/o/8%2F2022-07-05T21%3A38%3A27.032?alt=media&token=f8e82401-c35f-4415-aeab-7e2edb67f6bd"
-        var uri : Uri = Uri.parse(path)
-        videoview.setVideoURI(uri)
-        videoview.setMediaController(MediaController(this))
-        videoview.requestFocus()
-        videoview.setOnPreparedListener{
-            Toast.makeText(applicationContext,"영상 준비 완료",Toast.LENGTH_SHORT).show()
-            videoview.start()
-        }
     }
 
     private fun Click_btnSettings(view: View){
@@ -255,49 +229,68 @@ class MainActivity : AppCompatActivity() {
 
     private fun GetImagePost(num : Int) {
         llImageView.removeAllViews()
-        val storage: FirebaseStorage = FirebaseStorage.getInstance()
-        val storagePath: StorageReference = storage.reference.child("$num")
+        val databasePath : DatabaseReference = database.reference.child("POST/POST_$num")
+        val storagePath : StorageReference = storage.reference.child("$num")
 
-        if (storagePath == null)
-            Toast.makeText(this, "데이터 없음", Toast.LENGTH_SHORT).show()
-        else {
-            storagePath.listAll().addOnSuccessListener {
-                for(data in it.items){
+
+        databasePath.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val userData = Array<String>(UploadPostActivity.POSTINFO.values().size){""}
+                for(data in snapshot.children){
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+
+        // Storage에서 게시물 가져오기
+        storagePath.listAll().addOnSuccessListener {
+            if(it.items.isNotEmpty()) {
+                llImage.visibility = VISIBLE
+                for (data in it.items) {
                     // Video인지 Image 인지 메타데이터 가져오기
                     data.metadata.addOnSuccessListener { metadata ->
-                        Log.i("DownLoad","${metadata.contentType}")
-                        if(metadata.contentType!!.contains("image")){
+                        Log.i("DownLoad", "${metadata.contentType}")
+                        if (metadata.contentType!!.contains("image")) {
                             val imageview = ImageView(this)
                             imageview.scaleType = ImageView.ScaleType.FIT_CENTER
                             llImageView.addView(imageview)
                             data.downloadUrl.addOnCompleteListener(OnCompleteListener {
-                                if(it.isSuccessful) {
+                                if (it.isSuccessful) {
                                     Glide.with(this).load(it.result).into(imageview)
-                                    Log.i("downLoad", "Height : ${it.result}   Width ${imageview.width}")
                                 }
                             })
-                        }
-                        else{
-//                            TODO("씨이발 동영상은 어케넣어? VideoView는 Glide에 안넣어져")
-//                            val imageview = ImageView(this)
-//                            imageview.scaleType = ImageView.ScaleType.FIT_CENTER
-//                            llImageView.addView(imageview)
+                        } else {
+                            val videoView = VideoView(this@MainActivity)
+                            var Layout = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT,
+                                1000
+                            )
+                            Layout.gravity = Gravity.CENTER
+                            videoView.layoutParams = Layout
+                            llImageView.addView(videoView)
                             data.downloadUrl.addOnCompleteListener(OnCompleteListener {
-                                if(it.isSuccessful) {
-//                                    val VideoView = VideoView(this)
-//                                    llImageView.addView(VideoView)
-                                    videoview?.setVideoURI(it.result)
-                                    videoview.start()
-//                                    Glide.with(this).load(it.result).into(imageview)
-                                    Log.i("downLoad", " ---------------------------- ${it.result.toString()}   ")
+                                if (it.isSuccessful) {
+                                    videoView.visibility = VISIBLE
+                                    videoView.setVideoURI(it.result)
+                                    videoView.setMediaController(MediaController(this))
+                                    videoView.start()
                                 }
                             })
                         }
                     }
                 }
-
             }
-
+            else{
+                llImage.visibility = GONE
+                Toast.makeText(this,"게시물 없음",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
