@@ -25,6 +25,8 @@
                 android:background="@color/color_main"
                 android:gravity="center"
                 android:padding="10dp"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
                 android:text="고급유머 +_+"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -41,6 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="제목"
+                    android:id="@+id/llImage_header"
                     android:paddingTop="3dp"
                     android:paddingLeft="5dp"
                     android:background="@drawable/textview_back_lightgray"/>
@@ -48,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="작성자 | No.숫자 | 날짜"
+                    android:id="@+id/llImage_data"
                     android:paddingBottom="3dp"
                     android:paddingLeft="5dp"
                     android:background="@drawable/textview_back_lightgray" />
@@ -64,6 +68,7 @@
                     android:layout_height="wrap_content"
                     android:text="출처 또는 퍼온곳 : "
                     android:textAlignment="center"
+                    android:id="@+id/llImage_source"
                     android:paddingTop="10dp"
                     android:paddingBottom="3dp"/>
 

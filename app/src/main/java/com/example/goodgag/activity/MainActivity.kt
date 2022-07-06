@@ -19,6 +19,8 @@ import com.example.goodgag.Post
 import com.example.goodgag.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -67,6 +69,8 @@ class MainActivity : AppCompatActivity() {
 
         //토큰값 가져오기 -> 새기기 or 앱삭제 재설치 or 앱 데이터 소거시 토큰 초기화
         GetToken()
+        //상단고정
+        tv_Main.requestFocus()
 
         lv_main.adapter = MainListAdapter(this, postList)
 
@@ -294,6 +298,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun  GetPostInfo(num : Int){
+        val database : DatabaseReference = Firebase.database.reference
+        val databaseRef = database.child("POST").child("POST_$num")
+        databaseRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val postData = Array<String>(5) { "" }
+                var n : Int = 0
+                for(i in snapshot.children){
+                    postData[n++] = i.value.toString()
+                }
+                val post : Post = Post(postData[0], postData[1],postData[2],postData[3],postData[4])
+                llImage_header.setText(post.header)
+                llImage_data.setText("작성자 " + post.uploader + " | No." + post.number + " | " + post.date)
+                llImage_source.setText("출처 또는 퍼온 곳 : " + post.source)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
 
 //    private  fun GetPostInfo(){
 //        val database : FirebaseDatabase = FirebaseDatabase.getInstance()

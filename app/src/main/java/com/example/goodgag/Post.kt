@@ -2,6 +2,7 @@ package com.example.goodgag
 
 class Post (val date: String, val header: String, val number: String, val source: String, val uploader: String){
 
+
     @JvmName("getDate1")
     fun getDate() : String{
         return date
