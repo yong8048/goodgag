@@ -109,6 +109,7 @@ class MainActivity : AppCompatActivity() {
 
         lv_main.setOnItemClickListener { parent, view, position, id ->
             val clickedListNum : Int = postList[position].getNumber().toInt()
+            GetPostInfo(clickedListNum)
             GetImagePost(clickedListNum)
 
         }
@@ -155,7 +156,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Click_btnRandom(view: View){
-        val path : String = "https://firebasestorage.googleapis.com/v0/b/goodgag-2005b.appspot.com/o/8%2F2022-07-05T21%3A38%3A27.032?alt=media&token=f8e82401-c35f-4415-aeab-7e2edb67f6bd"
+
     }
 
     private fun Click_btnSettings(view: View){
@@ -233,25 +234,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun GetImagePost(num : Int) {
         llImageView.removeAllViews()
-        val databasePath : DatabaseReference = database.reference.child("POST/POST_$num")
         val storagePath : StorageReference = storage.reference.child("$num")
-
-
-        databasePath.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val userData = Array<String>(UploadPostActivity.POSTINFO.values().size){""}
-                for(data in snapshot.children){
-
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-
-
 
         // Storage에서 게시물 가져오기
         storagePath.listAll().addOnSuccessListener {
@@ -308,10 +291,16 @@ class MainActivity : AppCompatActivity() {
                 for(i in snapshot.children){
                     postData[n++] = i.value.toString()
                 }
-                val post : Post = Post(postData[0], postData[1],postData[2],postData[3],postData[4])
-                llImage_header.setText(post.header)
-                llImage_data.setText("작성자 " + post.uploader + " | No." + post.number + " | " + post.date)
-                llImage_source.setText("출처 또는 퍼온 곳 : " + post.source)
+                val post: Post = Post(
+                    postData[UploadPostActivity.POSTINFO.DATE.num],
+                    postData[UploadPostActivity.POSTINFO.HEADER.num],
+                    postData[UploadPostActivity.POSTINFO.NUMBER.num],
+                    postData[UploadPostActivity.POSTINFO.SOURCE.num],
+                    postData[UploadPostActivity.POSTINFO.UPLOADER.num]
+                )
+                llImage_header.text = post.header
+                llImage_data.text = "작성자 " + post.uploader + " | No." + post.number + " | " + post.date
+                llImage_source.text = "출처 또는 퍼온 곳 : + " + post.source
             }
 
             override fun onCancelled(error: DatabaseError) {
