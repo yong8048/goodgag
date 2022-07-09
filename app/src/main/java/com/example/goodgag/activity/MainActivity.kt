@@ -24,6 +24,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 import java.time.LocalDate
 
 
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity() {
 
     var postNum : Int = 1
     //시간 담아두는 방식 - 날짜 저장 / datetime은 시간까지
-    var date : String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    var
+            date : String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         LocalDate.now().toString()
     } else {
         throw Exception("SDK 버전이 낮습니다ㅋㅋ \n조선폰ㅋㅋ")
@@ -47,24 +49,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val intent : Intent = getIntent()
-        var PostClass = intent.getParcelableArrayExtra("Post")
+//        val intent : Intent = getIntent()
+//        var PostClass = intent.getParcelableArrayExtra("Post")
 
+        CoroutineScope(Dispatchers.Main).launch {
+            asasdd()
+        }
 
-
-        GetPostArrayInfo()
+//        GetPostArrayInfo()
         //토큰값 가져오기 -> 새기기 or 앱삭제 재설치 or 앱 데이터 소거시 토큰 초기화
         GetToken()
         //상단고정
         tv_Main.requestFocus()
 
-        lv_main.adapter = MainListAdapter(this, postList)
 
-        ListViewHeightSize()
+
+
 
         //////////////////////////////////////// 상단 새로고침
         tv_Main.setOnClickListener { Click_Refresh(it) }
-
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////하단바 클릭 이벤트
         //////////////////////////////////////// 버튼 클릭 뒤로가기
@@ -315,19 +318,60 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-//    private  fun GetPostInfo(){
-//        val database : FirebaseDatabase = FirebaseDatabase.getInstance()
-//        val myRef : DatabaseReference = database.getReference("POST")
-//        myRef.addValueEventListener(object : ValueEventListener{
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//
-//            }
-//        })
-//
-//    }
+    private fun asd(){
+        val database : DatabaseReference = Firebase.database.reference
+        val databaseRef = database.child("POSTNUMBER")
+        var postIndex: Int = 0
+
+        databaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val lastPostNum: Int = snapshot.value.toString().toInt()
+                var res: Int = 0
+                for (_lastPostNum in lastPostNum downTo lastPostNum - 14) {
+                    val postref = database.child("POST").child("POST_$_lastPostNum")
+                    postref.addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            var index: Int = 0
+                            var _data = Array<String>(5) { "" }
+                            for (data in snapshot.children) {
+                                _data[index++] = data.value.toString()
+                            }
+                            val member = Post(_data[0], _data[1], _data[2], _data[3], _data[4])
+                            postList[postIndex++] = member
+
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+
+                    })
+                }
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    private fun a2(){
+        lv_main.adapter = MainListAdapter(this@MainActivity, postList)
+    }
+    private fun a3(){
+        ListViewHeightSize()
+    }
+
+    suspend fun asasdd() = coroutineScope {
+        val a = async {
+            asd()
+        }.await()
+        val b = async {
+            a2()
+        }.await()
+        val c = async {
+            a3()
+        }.await()
+
+    }
 
 }
