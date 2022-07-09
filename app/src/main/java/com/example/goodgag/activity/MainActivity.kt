@@ -12,7 +12,6 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.widget.*
-import androidx.compose.animation.core.snap
 import com.bumptech.glide.Glide
 import com.example.goodgag.adapter.MainListAdapter
 import com.example.goodgag.Post
@@ -37,26 +36,7 @@ class MainActivity : AppCompatActivity() {
     } else {
         throw Exception("SDK 버전이 낮습니다ㅋㅋ \n조선폰ㅋㅋ")
     }
-    var postList = arrayListOf<Post>(
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-        Post(date, "이승용", postNum++.toString(), "z","z"),
-    )
+    var postList = Array<Post?>(15) { null }
     var listNumber : Int = 0
 
     var storage : FirebaseStorage = FirebaseStorage.getInstance()
@@ -67,6 +47,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val intent : Intent = getIntent()
+        var PostClass = intent.getParcelableArrayExtra("Post")
+
+
+
+        GetPostArrayInfo()
         //토큰값 가져오기 -> 새기기 or 앱삭제 재설치 or 앱 데이터 소거시 토큰 초기화
         GetToken()
         //상단고정
@@ -108,15 +94,35 @@ class MainActivity : AppCompatActivity() {
 
 
         lv_main.setOnItemClickListener { parent, view, position, id ->
-            val clickedListNum : Int = postList[position].getNumber().toInt()
+            val clickedListNum : Int = postList[position]!!.number!!.toInt()
             GetPostInfo(clickedListNum)
             GetImagePost(clickedListNum)
 
         }
     }
 
+    private fun Init(){
+
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
+    }
+
+    private fun GetPostArrayInfo(){
+        val database : DatabaseReference = Firebase.database.reference
+        val databaseRef = database.child("POSTNUMBER")
+        databaseRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val postNumebr: Int = snapshot.value.toString().toInt()
+//                for(postNumber until postNumber-1)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
     }
 
     private fun Click_btnBack(view : View){

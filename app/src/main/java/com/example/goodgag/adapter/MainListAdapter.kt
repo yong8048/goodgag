@@ -10,12 +10,12 @@ import com.example.goodgag.Post
 import com.example.goodgag.R
 import kotlinx.android.synthetic.main.main_lv_item.view.*
 
-class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : BaseAdapter() {
+class MainListAdapter(val context: Context, val postList: Array<Post?>) : BaseAdapter() {
     override fun getCount(): Int {
         return 15
     }
 
-    override fun getItem(position: Int): Post {
+    override fun getItem(position: Int): Post? {
         return postList[position]
     }
 
@@ -26,9 +26,9 @@ class MainListAdapter (val context: Context, val postList: ArrayList<Post>) : Ba
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view : View = LayoutInflater.from(context).inflate(R.layout.main_lv_item, null)
 
-        view.tv_number.text = postList[position].number
-        view.tv_header.text = postList[position].header
-        view.tv_date.text = postList[position].date
+        view.tv_number.text = postList[position]?.number
+        view.tv_header.text = postList[position]?.header
+        view.tv_date.text = postList[position]?.date
 
         return view
     }
